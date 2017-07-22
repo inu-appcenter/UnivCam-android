@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/color_lightish_blue</color>
+    <color name="colorPrimaryDark">@color/color_darkish_blue</color>
+    <color name="colorAccent">@color/color_lightish_blue</color>
+
+
+    <color name="color_darkish_blue">#4150c8</color>
+    <color name="color_lightish_blue">#5565fd</color>
+
+    <color name="color_text_title_bold_16_sp">#dd000000</color>
+    <color name="color_text_date_regular_14_sp">#dd000000</color>
+    <color name="color_text_sub_regular_12_sp">#89000000</color>
+    <color name="color_text_album_bold_20_sp">#ffffff</color>
+</resources>
