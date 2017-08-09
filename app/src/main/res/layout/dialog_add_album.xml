@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/window_background"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@color/window_background"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <ImageButton
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="4dp"
+            android:background="@android:color/transparent"
+            android:tint="@color/dialog_text"
+            android:id="@+id/cancel_button"
+            android:padding="13dp"
+            android:src="@drawable/ic_close_white_24dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:id="@+id/ok_button"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="@color/dialog_text"
+            android:layout_width="52dp"
+            android:layout_height="40dp"
+            android:text="확인"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="4dp"
+            android:background="@android:color/transparent"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
+
+
+        <TextView
+            android:text="새로운 앨범"
+            android:textStyle="bold"
+            android:textSize="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/text_primary"
+            android:lineSpacingExtra="11.2sp"/>
+
+
+        <EditText
+            android:id="@+id/album_title_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:background="@null"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginLeft="16dp"
+            tools:text="앨범명을 입력해주세요(20자 이내)"
+            android:hint="앨범명을 입력해주세요(20자 이내)"
+            android:clickable="true"
+            android:maxLength="20"
+            android:ems="10"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:focusableInTouchMode="true"
+            android:textColor="@color/text_secondary">
+            <requestFocus />
+        </EditText>
+
+
+
+
+
+
+
+</LinearLayout>
+

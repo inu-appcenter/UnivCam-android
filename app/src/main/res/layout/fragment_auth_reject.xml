@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/window_background"
+    android:layout_height="match_parent"
+    tools:context="com.inuappcenter.univcam_android.fragments.AuthRejectFragment">
+
+    <TextView
+        android:id="@+id/request"
+        android:layout_alignParentTop="true"
+        android:text="권한 승인 요청"
+        android:textStyle="bold"
+        android:textSize="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:layout_marginLeft="17dp"
+        android:textColor="@color/text_primary"
+        android:lineSpacingExtra="11.2sp"/>
+
+    <TextView
+        android:id="@+id/detail"
+        android:layout_below="@+id/request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:layout_marginRight="39dp"
+        android:layout_marginTop="63dp"
+        android:layout_marginLeft="16dp"
+        android:text="UnivCam 서비스를 이용하기 위해서는\n카메라,저장공간에 대한 접근이 필요합니다"
+        android:lineSpacingExtra="9.9dp"
+        android:textColor="@color/text_primary">
+    </TextView>
+
+    <TextView
+        android:layout_below="@+id/detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="16dp"
+        android:text="아래 버튼을 눌러 접근 권한을 승인해주세요"
+        android:lineSpacingExtra="9.9dp"
+        android:textColor="@color/text_primary">
+    </TextView>
+
+    <Button
+        android:background="@android:color/transparent"
+        android:id="@+id/request_permission_button"
+        android:layout_alignParentBottom="true"
+        android:text="권한 설정하기"
+        android:textStyle="bold"
+        android:textSize="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginBottom="120dp"
+        android:textColor="@color/text_primary"/>
+
+
+
+</RelativeLayout>
+

@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/color_lightish_blue</color>
-    <color name="colorPrimaryDark">@color/color_darkish_blue</color>
-    <color name="colorAccent">@color/color_lightish_blue</color>
+    <!-- Theme colors -->
+    <color name="primary">@color/univcam_white</color>
+    <color name="primary_dark">@color/univcam_white</color>
+    <color name="accent">@color/cool_grey</color>
+
+    <color name="text_primary">@color/gunmetal</color>
+    <color name="text_secondary">@color/cool_grey</color>
+    <color name="dialog_text">@color/very_light_grey</color>
+
+    <color name="icon_normal">@color/cool_grey</color>
+    <color name="icon_pressed">@color/gunmetal</color>
+    <color name="window_background">@color/univcam_white</color>
+    <color name="stroke">@color/light_grey</color>
+    <color name="like_button">@color/warm_pink</color>
 
 
-    <color name="color_darkish_blue">#4150c8</color>
-    <color name="color_lightish_blue">#5565fd</color>
 
-    <color name="color_text_title_bold_16_sp">#dd000000</color>
-    <color name="color_text_date_regular_14_sp">#dd000000</color>
-    <color name="color_text_sub_regular_12_sp">#89000000</color>
-    <color name="color_text_album_bold_20_sp">#ffffff</color>
+
+    <!-- UnivCam colors.  -->
+    <color name="very_light_grey">#60353946</color>
+    <color name="gunmetal">#515861</color>
+    <color name="univcam_white">#ffffff</color>
+    <color name="warm_pink">#ff4773</color>
+    <color name="charcoal_grey">#353946</color>
+    <color name="cool_grey">#babac0</color>
+    <color name="light_grey">#dfdfdf</color>  <!-- stroke only -->
+
+
+
 </resources>
