@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="#ffffff"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/main_toolbar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/window_background" >
+
+
+        <ImageButton
+            android:layout_gravity="center_vertical"
+            android:id="@+id/search_image"
+            android:tint="@color/icon_normal"
+            android:layout_marginLeft="14dp"
+            android:padding="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_search_24dp_blue"/>
+
+
+
+        <EditText
+            android:textCursorDrawable="@null"
+            tools:text="코틀린"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/text_secondary"
+            android:maxLength="20"
+            android:hint="검색어를 입력해주세요"
+            android:layout_gravity="center_vertical"
+            android:ems="10"
+            android:layout_marginLeft="11dp"
+            android:singleLine="true"
+            android:id="@+id/searchEt"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:textColor="@color/text_primary">
+            <requestFocus />
+
+        </EditText>
+
+        <ImageButton
+            android:focusable="true"
+            android:clickable="true"
+            android:tint="@color/icon_normal"
+            android:background="@android:color/transparent"
+            android:id="@+id/sort_button"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_close_white_24dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="4dp" />
+
+
+    </LinearLayout>
+
+
+
+
+
+    <View
+        android:layout_above="@+id/bottomNavigationBar"
+        android:background="@color/stroke"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <LinearLayout
+        android:id="@+id/bottomNavigationBar"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#ffffff"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/home_button"
+            android:layout_weight="1"
+            android:layout_width="72dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:layout_width="26dp"
+                android:layout_height="22dp"
+                android:tint="@color/icon_normal"
+                android:src="@drawable/ic_home_blue_24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/search_button"
+            android:layout_weight="1"
+            android:layout_width="72dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:tint="@color/icon_normal"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:src="@drawable/ic_search_24dp_black"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="72dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:tint="@color/icon_normal"
+                android:layout_width="24dp"
+                android:layout_height="21dp"
+                android:src="@drawable/ic_camera_24dp_white"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp" />
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/favorite_button"
+            android:layout_weight="1"
+            android:layout_width="72dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:tint="@color/icon_normal"
+                android:layout_width="20dp"
+                android:layout_height="19dp"
+                android:src="@drawable/ic_star_black_24dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/settings_button"
+            android:layout_weight="1"
+            android:layout_width="72dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:tint="@color/icon_normal"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_settings_blue"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp" />
+        </RelativeLayout>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>
