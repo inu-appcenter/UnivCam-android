@@ -24,7 +24,6 @@ import com.inuappcenter.univcam_android.R;
 
 public class AlbumDialogFragment extends android.support.v4.app.DialogFragment {
 
-    Fragment mContext;
     EditText albumTitleEt;
     TextView okButton;
     ImageButton cancelButton;

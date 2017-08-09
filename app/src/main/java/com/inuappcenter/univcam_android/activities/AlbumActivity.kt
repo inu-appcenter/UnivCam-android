@@ -1,6 +1,7 @@
 package com.inuappcenter.univcam_android.activities
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import com.inuappcenter.univcam_android.R
 import com.inuappcenter.univcam_android.fragments.AlbumFragment
