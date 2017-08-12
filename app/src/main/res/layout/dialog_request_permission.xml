@@ -35,6 +35,7 @@
         android:layout_height="56dp">
 
         <Button
+            android:id="@+id/cancel_button"
             android:textColor="@color/text_primary"
             android:textSize="18dp"
             android:textStyle="bold"
@@ -45,6 +46,7 @@
             android:layout_height="56dp" />
 
         <Button
+            android:id="@+id/ok_button"
             android:textColor="@color/text_primary"
             android:textSize="18dp"
             android:textStyle="bold"

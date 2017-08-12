@@ -2,17 +2,14 @@ package com.inuappcenter.univcam_android.activities
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import com.inuappcenter.univcam_android.R
-import com.inuappcenter.univcam_android.fragments.AlbumFragment
+import com.inuappcenter.univcam_android.fragments.AlbumDetailFragment
 
-
-class AlbumActivity : BaseFragmentActivity() {
+class AlbumDetailActivity : BaseFragmentActivity() {
     override fun createFragment(): Fragment {
-        return AlbumFragment.newInstance()
+        return AlbumDetailFragment.newInstance()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
     }
 }
