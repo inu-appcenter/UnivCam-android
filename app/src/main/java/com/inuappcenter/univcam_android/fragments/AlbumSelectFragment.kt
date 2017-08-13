@@ -45,6 +45,11 @@ class AlbumSelectFragment : BaseFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(fragment_album_select_toolbar)
+        (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        fragment_album_select_toolbar.setNavigationIcon(R.drawable.ic_clear_black_24_dp)
+        fragment_album_select_toolbar.setNavigationOnClickListener {
+            activity.finish()
+        }
 
         fragment_album_select_recyclerview.let{
             it.layoutManager = GridLayoutManager(activity, 2)
@@ -60,11 +65,13 @@ class AlbumSelectFragment : BaseFragment() {
         mAlbumViewSelectAdapter = AlbumViewSelectAdapter(this, initialList)
         fragment_album_select_recyclerview.adapter = mAlbumViewSelectAdapter
 
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater?.inflate(R.menu.album_select_menu, menu)
+
 
 
 

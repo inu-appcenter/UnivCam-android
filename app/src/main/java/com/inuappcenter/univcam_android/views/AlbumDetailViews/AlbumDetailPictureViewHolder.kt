@@ -1,30 +1,27 @@
-package com.inuappcenter.univcam_android.views.AlbumViews
+package com.inuappcenter.univcam_android.views.AlbumDetailViews
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.*
-import com.bumptech.glide.load.engine.Resource
+import android.widget.CheckBox
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import com.inuappcenter.univcam_android.R
 import com.inuappcenter.univcam_android.fragments.AlbumSelectFragment
-import kotlinx.android.synthetic.main.album_select_item.view.*
-import android.graphics.drawable.Drawable
-
-
+import kotlinx.android.synthetic.main.album_detail_picture_item.view.*
 
 /**
- * Created by ichaeeun on 2017. 7. 29..
+ * Created by ichaeeun on 2017. 8. 13..
  */
 
-class AlbumSelectViewHolder(var view :View, var selectfragment: AlbumSelectFragment): RecyclerView.ViewHolder(view), View.OnClickListener {
+class AlbumDetailPictureViewHolder(var view :View, var selectfragment: AlbumSelectFragment): RecyclerView.ViewHolder(view), View.OnClickListener {
 
 
     var a: Boolean =  true
 
-    val select_layout: LinearLayout = itemView.select_layout
-    val tv_title: TextView = itemView.albumName
-    val tv_quantity: TextView = itemView.quantity
-    val thumbnail: ImageView = itemView.thumbnail
     val checkbox: CheckBox = itemView.checkbox
+    val select_layout: RelativeLayout = itemView.picture_layout
+    var picture: ImageView = itemView.picture
 
     init {
         select_layout.setOnClickListener(this)

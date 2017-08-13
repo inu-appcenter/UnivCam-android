@@ -1,7 +1,9 @@
 package com.inuappcenter.univcam_android.entites;
 
+import java.util.Date;
+
+import io.realm.RealmList;
 import io.realm.RealmObject;
-import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
@@ -12,31 +14,56 @@ import io.realm.annotations.Required;
 public class Album extends RealmObject {
 
     @PrimaryKey
-    String title;
+    private String albumName;
 
-    String thumbnailUri;
-    int quantity;
+    private Date albumDate;
+    private String albumPath;
+    private String thumbnailUri;
+    private int quantity;
 
     @Required
-    Boolean isFavorite;
+    private Boolean isFavorite;
+    private RealmList<Picture> pictures;
+
+
+
 
     public Album() {
 
     }
 
-    public Album(String title, String thumbnailUri, int quantity, boolean isFavorite) {
-        this.title = title;
+    public Album(String albumName, Date albumDate, String albumPath, String thumbnailUri, int quantity, Boolean isFavorite, RealmList<Picture> pictures) {
+        this.albumName = albumName;
+        this.albumDate = albumDate;
+        this.albumPath = albumPath;
         this.thumbnailUri = thumbnailUri;
         this.quantity = quantity;
         this.isFavorite = isFavorite;
+        this.pictures = pictures;
     }
 
-    public String getTitle() {
-        return title;
+    public String getAlbumName() {
+        return albumName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName;
+    }
+
+    public Date getAlbumDate() {
+        return albumDate;
+    }
+
+    public void setAlbumDate(Date albumDate) {
+        this.albumDate = albumDate;
+    }
+
+    public String getAlbumPath() {
+        return albumPath;
+    }
+
+    public void setAlbumPath(String albumPath) {
+        this.albumPath = albumPath;
     }
 
     public String getThumbnailUri() {
@@ -55,13 +82,19 @@ public class Album extends RealmObject {
         this.quantity = quantity;
     }
 
-    public boolean isFavorite() {
+    public Boolean getFavorite() {
         return isFavorite;
     }
 
-    public void setFavorite(boolean favorite) {
+    public void setFavorite(Boolean favorite) {
         isFavorite = favorite;
     }
 
+    public RealmList<Picture> getPictures() {
+        return pictures;
+    }
 
+    public void setPictures(RealmList<Picture> pictures) {
+        this.pictures = pictures;
+    }
 }

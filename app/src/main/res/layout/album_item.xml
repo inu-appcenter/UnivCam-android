@@ -55,7 +55,7 @@
         <TextView
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@+id/camera_button"
-            android:id="@+id/title"
+            android:id="@+id/albumName"
             android:textStyle="bold"
             android:textSize="16dp"
             android:text="융합디자인론"

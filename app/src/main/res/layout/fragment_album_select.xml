@@ -26,21 +26,37 @@
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbarLayout"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:layout_scrollFlags="exitUntilCollapsed">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+
+                        android:gravity="center_vertical"
+                        android:textStyle="bold"
+                        android:layout_marginTop="53dp"
+                        android:layout_marginLeft="16dp"
+                        android:textSize="32dp"
+                        android:id="@+id/toolbar_origin_text"
+                        android:text="앨범을 선택해주세요"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
 
 
                 <android.support.v7.widget.Toolbar
+                    app:title=" "
                     android:id="@+id/fragment_album_select_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    app:title="앨범을 선택해주세요"
                     android:outlineProvider="paddedBounds"
-                    android:paddingLeft="16dp"
                     android:titleTextColor="@color/text_primary"
-                    app:layout_collapseMode="pin"
                     app:popupTheme="@style/AppThemeToolBar"
                     android:scrollbarAlwaysDrawHorizontalTrack="true"
                     app:theme="@style/AppThemeToolBar"

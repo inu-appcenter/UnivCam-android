@@ -10,9 +10,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.inuappcenter.univcam_android.R
 import com.inuappcenter.univcam_android.activities.AlbumDetailActivity
+import com.inuappcenter.univcam_android.database.RealmHelper
 import com.inuappcenter.univcam_android.entites.Album
 import com.inuappcenter.univcam_android.entites.ItemClickListener
+import com.inuappcenter.univcam_android.entites.Picture
 import com.inuappcenter.univcam_android.fragments.AlbumFragment
+import io.realm.Realm
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,6 +26,9 @@ import java.util.*
  */
 
 class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var albumList: ArrayList<Album>) : RecyclerView.Adapter<AlbumViewHolder>() {
+
+    private lateinit var realm: Realm
+    private lateinit var realmHelper: RealmHelper
 
     fun addAlbum(album: Album) {
 //        albumList.add(0, album)
@@ -37,15 +43,21 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
     }
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
+        Realm.init(context)
+        realm = Realm.getDefaultInstance()
+
+        realmHelper = RealmHelper(realm)
+        realmHelper.retrieveFromDB()
+
         val item = albumList.get(position)
         //TODO: 이미지 가져오는 DB- 처음은 default
 //        Glide.with(context)
 //                .load(item.thumbnailUri)
 //                .into(holder.thumbnail)
         holder.thumbnail.setImageResource(R.drawable.img_example)
-        holder.tv_title.setText(item.title)
+        holder.tv_title.setText(item.albumName)
         holder.tv_quantity.setText("${item.quantity}장의 사진")
-        holder.is_favorite.setChecked(item.isFavorite)
+        holder.is_favorite.setChecked(item.favorite)
         holder.album_menu.setOnClickListener {
             var popupMenu = PopupMenu(context, holder.album_menu)
             popupMenu.inflate(R.menu.album_menu)
@@ -83,19 +95,18 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
 
         holder.is_favorite.setOnCheckedChangeListener {
             compoundButton, isChecked ->
-            val mInterface = fragment as ItemClickListener
-            mInterface.onItemClick(position, isChecked)
+            realmHelper.updateFavoriteAlbum(item.albumName, isChecked)
         }
 
         // TODO : 카메라 사진 찍기
         holder.camera_button.setOnClickListener{
-            takePicture(holder.tv_title.text.toString())
+            takePicture(position, holder.tv_title.text.toString())
         }
 
         //TODO: DetailPage
         holder.select_layout.setOnClickListener {
             val intent = Intent(context, AlbumDetailActivity::class.java)
-            intent.putExtra("albumName", holder.tv_title.toString())
+            intent.putExtra("albumName", holder.tv_title.text.toString())
             context.startActivity(intent)
         }
 
@@ -106,12 +117,14 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
         return albumList.size
     }
 
-    private fun takePicture(albumName: String) {
+    private fun takePicture(position: Int, albumName: String) {
         val intent = Intent()
         val TAKE_CAMERA = 100
 
+        var date = Date()
         val albumPath = File(context.getExternalFilesDir(null),albumName)
-        val fileName = SimpleDateFormat("yyyyMMdd_HH_mm_ssSSS").format(Date())
+        val fileName = SimpleDateFormat("yyyyMMdd_HH_mm_ssSSS").format(date)
+        val category = SimpleDateFormat("yyyy년 MM월 HH일").format(date)
         val filePath = albumPath.toString() + File.separator + fileName + ".jpg"
 
         val file = File(filePath)
@@ -120,6 +133,9 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
         intent.action = MediaStore.ACTION_IMAGE_CAPTURE
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri)
         context.startActivityForResult(intent, TAKE_CAMERA)
+        var picture: Picture = Picture(file.toString(), date, category)
+
+        realmHelper.savePicture(albumName, picture)
     }
 
 }

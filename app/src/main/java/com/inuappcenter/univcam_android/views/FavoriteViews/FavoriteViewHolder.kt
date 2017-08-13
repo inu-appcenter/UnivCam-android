@@ -13,7 +13,7 @@ class FavoriteViewHolder(view :View): RecyclerView.ViewHolder(view){
 
 
     var select_layout: LinearLayout = itemView.select_layout
-    val tv_title: TextView = itemView.title
+    val tv_title: TextView = itemView.albumName
     val tv_quantity: TextView = itemView.quantity
     val thumbnail: ImageView = itemView.thumbnail
     val is_favorite: CheckBox = itemView.isFavorite

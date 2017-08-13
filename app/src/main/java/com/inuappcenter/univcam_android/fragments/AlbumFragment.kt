@@ -32,7 +32,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AlbumFragment : BaseFragment(), ItemClickListener{
+class AlbumFragment : BaseFragment(){
 
 
 
@@ -40,12 +40,12 @@ class AlbumFragment : BaseFragment(), ItemClickListener{
     private val TAG = AlbumFragment::class.java.simpleName
     private lateinit var realm: Realm
     private lateinit var realmHelper: RealmHelper
-
+    private lateinit var mAlbumViewAdapter: AlbumViewAdapter
 
     private val mPopupdef: WindowManager.LayoutParams by lazy {
         WindowManager.LayoutParams()
     }
-    private lateinit var mAlbumViewAdapter: AlbumViewAdapter
+
 
 
     companion object {
@@ -147,15 +147,19 @@ class AlbumFragment : BaseFragment(), ItemClickListener{
 
                 val createAlbumDialog = AlbumDialogFragment.newInstance(AlbumDialogInterface {
                     val albumName = it
+                    var date = Date()
 
                     val sdcardState = Environment.getExternalStorageState()
                     if (Environment.MEDIA_MOUNTED == sdcardState) {
                         val file = File(activity.getExternalFilesDir(null), albumName)
-                        if (!file.exists())
+                        if (!file.exists()) {
                             file.mkdirs()
+                        }
+//
+                        mAlbumViewAdapter.addAlbum(Album(it,date, file.toString(),"R.drawable.img_example", 0, false, null))
 
-                        mAlbumViewAdapter.addAlbum(Album(it, "R.drawable.img_example", 0, false))
-                        saveAlbumToRealm(albumName)
+
+                        saveAlbumToRealm(albumName, file.toString(), date)
                     }
                 })
                 createAlbumDialog.show(ft, "dialog")
@@ -164,10 +168,10 @@ class AlbumFragment : BaseFragment(), ItemClickListener{
         return super.onOptionsItemSelected(item)
     }
 
-    private fun  saveAlbumToRealm(albumName: String) {
+    private fun  saveAlbumToRealm(albumName: String, albumPath: String, date: Date) {
         if (albumName != null && albumName.length > 0) {
             // TODO: default 이미지
-            var album = Album(albumName, "R.drawable.img_example", 0, false)
+            var album = Album(albumName, date, albumPath,"R.drawable.img_example", 0, false, null)
            realmHelper.saveAlbum(album)
         } else {
             Log.d("AlbumFragment","앨범명 입력 안함")
@@ -184,9 +188,7 @@ class AlbumFragment : BaseFragment(), ItemClickListener{
         }
     }
 
-    override fun onItemClick(pos: Int, isChecked: Boolean) {
-        realmHelper.updateFavoriteAlbum(pos, isChecked)
-    }
+
 
 
 

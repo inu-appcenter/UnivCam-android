@@ -12,8 +12,9 @@ class ApplicationController : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val config = RealmConfiguration.Builder().build()
+        val config = RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build()
         Realm.setDefaultConfiguration(config)
+
 //
 //        Typekit.getInstance()
 //                .addNormal(Typekit.createFromAsset(this, "kopubbatang_medium.otf"))

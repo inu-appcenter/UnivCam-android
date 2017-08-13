@@ -27,7 +27,7 @@ class AlbumViewSelectAdapter(var context: AlbumSelectFragment, var albumList: Ar
     override fun onBindViewHolder(holder: AlbumSelectViewHolder, position: Int) {
         val item = albumList[position]
         holder.thumbnail.setImageResource(R.drawable.img_example)
-        holder.tv_title.setText(item.title)
+        holder.tv_title.setText(item.albumName)
         holder.tv_quantity.setText("${item.quantity}장의 사진")
 
 

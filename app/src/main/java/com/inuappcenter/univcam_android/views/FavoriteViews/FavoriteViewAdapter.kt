@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import com.inuappcenter.univcam_android.R
 import com.inuappcenter.univcam_android.activities.AlbumDetailActivity
 import com.inuappcenter.univcam_android.entites.Album
-import com.inuappcenter.univcam_android.entites.ItemClickListener
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,7 +37,7 @@ class FavoriteViewAdapter(var context: Activity, var albumList: ArrayList<Album>
 //                .load(item.thumbnailUri)
 //                .into(holder.thumbnail)
         holder.thumbnail.setImageResource(R.drawable.img_example)
-        holder.tv_title.setText(item.title)
+        holder.tv_title.setText(item.albumName)
         holder.is_favorite.visibility= View.GONE
         holder.tv_quantity.setText("${item.quantity}장의 사진")
         holder.album_menu.setOnClickListener {
