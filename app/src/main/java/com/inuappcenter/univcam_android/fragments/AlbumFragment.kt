@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import com.inuappcenter.univcam_android.R
+import com.inuappcenter.univcam_android.activities.AlbumSelectActivity
 import com.inuappcenter.univcam_android.activities.FavoriteActivity
 import com.inuappcenter.univcam_android.activities.SearchActivity
 import com.inuappcenter.univcam_android.activities.SettingsActivity
@@ -20,6 +21,7 @@ import com.inuappcenter.univcam_android.database.RealmHelper
 import com.inuappcenter.univcam_android.dialogs.AlbumDialogFragment
 import com.inuappcenter.univcam_android.dialogs.AlbumDialogInterface
 import com.inuappcenter.univcam_android.entites.Album
+import com.inuappcenter.univcam_android.entites.ItemClickListener
 import com.inuappcenter.univcam_android.views.AlbumViews.AlbumViewAdapter
 import io.realm.Realm
 import io.realm.RealmChangeListener
@@ -30,7 +32,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AlbumFragment : BaseFragment(){
+class AlbumFragment : BaseFragment(), ItemClickListener{
 
 
 
@@ -38,7 +40,6 @@ class AlbumFragment : BaseFragment(){
     private val TAG = AlbumFragment::class.java.simpleName
     private lateinit var realm: Realm
     private lateinit var realmHelper: RealmHelper
-    private lateinit var realmChangeListener: RealmChangeListener<Realm>
 
 
     private val mPopupdef: WindowManager.LayoutParams by lazy {
@@ -46,7 +47,6 @@ class AlbumFragment : BaseFragment(){
     }
     private lateinit var mAlbumViewAdapter: AlbumViewAdapter
 
-    private lateinit var mOnClickListener: View.OnClickListener
 
     companion object {
         fun newInstance(): AlbumFragment {
@@ -58,7 +58,6 @@ class AlbumFragment : BaseFragment(){
                               savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         return inflater!!.inflate(R.layout.fragment_album, container, false)
-        Log.d(TAG,"on CreateView 실행됨")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -76,7 +75,7 @@ class AlbumFragment : BaseFragment(){
 
         realmHelper = RealmHelper(realm)
         realmHelper.retrieveFromDB()
-        mAlbumViewAdapter = AlbumViewAdapter(activity, realmHelper.justRefresh())
+        mAlbumViewAdapter = AlbumViewAdapter(this, activity, realmHelper.justRefresh())
         recyclerview.adapter = mAlbumViewAdapter
 
         //data change events and refresh
@@ -95,7 +94,7 @@ class AlbumFragment : BaseFragment(){
         }
 
         camera_button.setOnClickListener {
-            Intent(activity, SearchActivity::class.java).let{
+            Intent(activity, AlbumSelectActivity::class.java).let{
                 startActivity(it)
             }
         }
@@ -184,5 +183,12 @@ class AlbumFragment : BaseFragment(){
             }
         }
     }
+
+    override fun onItemClick(pos: Int, isChecked: Boolean) {
+        realmHelper.updateFavoriteAlbum(pos, isChecked)
+    }
+
+
+
 
 }

@@ -1,12 +1,12 @@
 package com.inuappcenter.univcam_android.activities
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.inuappcenter.univcam_android.fragments.AlbumSelectFragment
 
 class AlbumSelectActivity : BaseFragmentActivity() {
     override fun createFragment(): Fragment {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return AlbumSelectFragment.newInstance()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

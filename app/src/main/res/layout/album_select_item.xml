@@ -6,7 +6,8 @@
     android:orientation="vertical"
     android:layout_width="174dp"
     android:background="@drawable/univ_stroke"
-    android:layout_height="243dp" >
+    android:layout_height="243dp"
+    >
 
     <RelativeLayout
         android:background="@drawable/univ_stroke"
@@ -22,7 +23,7 @@
             android:layout_height="match_parent"/>
 
         <CheckBox
-            android:checked="true"
+            android:buttonTint="@color/window_background"
             android:id="@+id/checkbox"
             android:layout_width="34dp"
             android:layout_height="34dp"

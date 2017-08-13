@@ -7,9 +7,8 @@ import io.realm.annotations.PrimaryKey;
  * Created by ichaeeun on 2017. 8. 11..
  */
 
-public class AlbumSelected extends RealmObject {
+public class AlbumSelected {
 
-    @PrimaryKey
     String title;
 
     String thumbnailUri;

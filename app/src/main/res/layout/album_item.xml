@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/select_layout"
     android:layout_margin="2dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"

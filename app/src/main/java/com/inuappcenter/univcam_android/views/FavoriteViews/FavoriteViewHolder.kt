@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.album_item.view.*
  * Created by ichaeeun on 2017. 7. 29..
  */
 
-class AlbumViewHolder(view :View): RecyclerView.ViewHolder(view){
+class FavoriteViewHolder(view :View): RecyclerView.ViewHolder(view){
 
 
     var select_layout: LinearLayout = itemView.select_layout

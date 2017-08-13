@@ -5,5 +5,5 @@ package com.inuappcenter.univcam_android.entites;
  */
 
 public interface ItemClickListener {
-    void onItemClick(int pos);
+    void onItemClick(int pos, boolean isChecked);
 }

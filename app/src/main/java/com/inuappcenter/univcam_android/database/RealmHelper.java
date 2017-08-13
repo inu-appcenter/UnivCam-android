@@ -43,6 +43,26 @@ public class RealmHelper {
         return saved;
     }
 
+    //SAVE
+    public Boolean updateFavoriteAlbum(final int position, final boolean isFavorite) {
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                try {
+                    Album album = albums.get(position);
+                    album.setFavorite(isFavorite);
+                    saved=true;
+                } catch (RealmException e) {
+                    e.printStackTrace();
+                    saved = false;
+                }
+            }
+        });
+
+        return saved;
+    }
+
     public void retrieveFromDB() {
         albums = realm.where(Album.class).findAll();
     }
@@ -54,5 +74,17 @@ public class RealmHelper {
         }
         return lates;
     }
+
+    public ArrayList<Album> retrieveFavoriteAlbums() {
+        ArrayList<Album> favoriteAlbums = new ArrayList<>();
+        RealmResults<Album> albums = realm.where(Album.class).equalTo("isFavorite",true).findAll();
+        for (Album album : albums) {
+            favoriteAlbums.add(album);
+        }
+        return favoriteAlbums;
+    }
+
+
+
 
 }

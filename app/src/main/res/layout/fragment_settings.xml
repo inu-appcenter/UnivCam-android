@@ -1,156 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <RelativeLayout
-        android:id="@+id/main_toolbar"
-        android:layout_alignParentTop="true"
+
+    <android.support.design.widget.CoordinatorLayout
+
+        android:layout_above="@+id/bottom_bar"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/primary" >
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="117dp"
+            app:elevation="0dp"
+            android:theme="@style/AppThemeToolBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
-        <TextView
-            android:text="즐겨찾는 앨범"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:lineSpacingExtra="12.4sp"
-            android:textColor="@color/text_primary" />
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/fragment_album_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    app:title="설정"
+                    android:outlineProvider="paddedBounds"
+                    android:paddingLeft="16dp"
+                    android:titleTextColor="@color/text_primary"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppThemeToolBar"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"
+                    app:theme="@style/AppThemeToolBar"
 
-        <ImageButton
-            android:focusable="true"
-            android:clickable="true"
-            android:tint="@color/univcam_white"
-            android:id="@+id/sort_button"
-            android:paddingTop="13dp"
-            android:paddingBottom="13dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="8dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_sort_black_24dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="4dp" />
-
-    </RelativeLayout>
-
-
+                    />
 
 
 
-    <View
-        android:layout_above="@+id/bottomNavigationBar"
-        android:background="@color/stroke"
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v7.widget.RecyclerView
+
+                xmlns:android="http://schemas.android.com/apk/res/android"
+
+                android:id="@+id/recyclerview"
+                android:padding="2dp"
+                android:background="@color/window_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+
+    <include
+        android:id="@+id/bottom_bar"
+        layout="@layout/bottom_bar"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
-
-    <LinearLayout
-        android:id="@+id/bottomNavigationBar"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="#ffffff"
-        android:layout_alignParentBottom="true">
-
-        <RelativeLayout
-            android:id="@+id/home_button"
-            android:layout_weight="1"
-            android:layout_width="72dp"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_centerInParent="true"
-                android:layout_width="26dp"
-                android:layout_height="22dp"
-                android:tint="@color/icon_normal"
-                android:src="@drawable/ic_home_blue_24dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="20dp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/search_button"
-            android:layout_weight="1"
-            android:layout_width="72dp"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_centerInParent="true"
-                android:tint="@color/icon_normal"
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:src="@drawable/ic_search_24dp_black"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="20dp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_weight="1"
-            android:layout_width="72dp"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_centerInParent="true"
-                android:tint="@color/icon_normal"
-                android:layout_width="24dp"
-                android:layout_height="21dp"
-                android:src="@drawable/ic_camera_24dp_white"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="20dp" />
-
-        </RelativeLayout>
-
-
-
-        <RelativeLayout
-            android:id="@+id/favorite_button"
-            android:layout_weight="1"
-            android:layout_width="72dp"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_centerInParent="true"
-                android:tint="@color/icon_normal"
-                android:layout_width="20dp"
-                android:layout_height="19dp"
-                android:src="@drawable/ic_star_black_24dp"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="20dp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/settings_button"
-            android:layout_weight="1"
-            android:layout_width="72dp"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_centerInParent="true"
-                android:tint="@color/icon_normal"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_settings_blue"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="20dp" />
-        </RelativeLayout>
-
-
-
-
-
-
-
-    </LinearLayout>
-
-
-
+        android:layout_alignParentBottom="true"/>
 
 
 </RelativeLayout>

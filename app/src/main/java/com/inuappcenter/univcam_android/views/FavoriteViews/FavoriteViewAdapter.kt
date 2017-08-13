@@ -7,12 +7,12 @@ import android.provider.MediaStore
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.inuappcenter.univcam_android.R
 import com.inuappcenter.univcam_android.activities.AlbumDetailActivity
 import com.inuappcenter.univcam_android.entites.Album
 import com.inuappcenter.univcam_android.entites.ItemClickListener
-import com.inuappcenter.univcam_android.fragments.AlbumFragment
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,21 +22,16 @@ import java.util.*
  * Created by ichaeeun on 2017. 7. 29..
  */
 
-class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var albumList: ArrayList<Album>) : RecyclerView.Adapter<AlbumViewHolder>() {
-
-    fun addAlbum(album: Album) {
-//        albumList.add(0, album)
-        albumList.add(album)
-        notifyDataSetChanged()
-    }
+class FavoriteViewAdapter(var context: Activity, var albumList: ArrayList<Album>) : RecyclerView.Adapter<FavoriteViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return AlbumViewHolder(layoutInflater.inflate(R.layout.album_item, parent, false))
+        return FavoriteViewHolder(layoutInflater.inflate(R.layout.album_item, parent, false))
     }
 
-    override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         val item = albumList.get(position)
         //TODO: 이미지 가져오는 DB- 처음은 default
 //        Glide.with(context)
@@ -44,8 +39,8 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
 //                .into(holder.thumbnail)
         holder.thumbnail.setImageResource(R.drawable.img_example)
         holder.tv_title.setText(item.title)
+        holder.is_favorite.visibility= View.GONE
         holder.tv_quantity.setText("${item.quantity}장의 사진")
-        holder.is_favorite.setChecked(item.isFavorite)
         holder.album_menu.setOnClickListener {
             var popupMenu = PopupMenu(context, holder.album_menu)
             popupMenu.inflate(R.menu.album_menu)
@@ -81,11 +76,7 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
             popupMenu.show()
         }
 
-        holder.is_favorite.setOnCheckedChangeListener {
-            compoundButton, isChecked ->
-            val mInterface = fragment as ItemClickListener
-            mInterface.onItemClick(position, isChecked)
-        }
+
 
         // TODO : 카메라 사진 찍기
         holder.camera_button.setOnClickListener{
@@ -101,6 +92,7 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
 
 
     }
+
 
     override fun getItemCount(): Int {
         return albumList.size

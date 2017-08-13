@@ -3,6 +3,7 @@ package com.inuappcenter.univcam_android.entites;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 /**
  * Created by ichaeeun on 2017. 8. 11..
@@ -15,7 +16,9 @@ public class Album extends RealmObject {
 
     String thumbnailUri;
     int quantity;
-    boolean isFavorite;
+
+    @Required
+    Boolean isFavorite;
 
     public Album() {
 
