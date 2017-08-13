@@ -3,7 +3,6 @@ package com.inuappcenter.univcam_android.views.AlbumViews
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.os.Environment
 import android.provider.MediaStore
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
@@ -33,7 +32,7 @@ class AlbumViewAdapter(var context: Activity, var albumList: ArrayList<Album>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return AlbumViewHolder(layoutInflater.inflate(R.layout.list_album, parent, false))
+        return AlbumViewHolder(layoutInflater.inflate(R.layout.album_item, parent, false))
     }
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {

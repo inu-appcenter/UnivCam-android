@@ -3,14 +3,19 @@ package com.inuappcenter.univcam_android.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.*
 import android.widget.Toast
 import com.inuappcenter.univcam_android.R
+import com.inuappcenter.univcam_android.activities.FavoriteActivity
+import com.inuappcenter.univcam_android.activities.SearchActivity
+import com.inuappcenter.univcam_android.activities.SettingsActivity
 import com.inuappcenter.univcam_android.database.RealmHelper
 import com.inuappcenter.univcam_android.dialogs.AlbumDialogFragment
 import com.inuappcenter.univcam_android.dialogs.AlbumDialogInterface
@@ -18,8 +23,11 @@ import com.inuappcenter.univcam_android.entites.Album
 import com.inuappcenter.univcam_android.views.AlbumViews.AlbumViewAdapter
 import io.realm.Realm
 import io.realm.RealmChangeListener
+import kotlinx.android.synthetic.main.bottom_bar.*
 import kotlinx.android.synthetic.main.fragment_album.*
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class AlbumFragment : BaseFragment(){
@@ -55,7 +63,7 @@ class AlbumFragment : BaseFragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        (activity as AppCompatActivity).setSupportActionBar(fragment_album_toolbar)
 
 
         recyclerview.let{
@@ -80,8 +88,48 @@ class AlbumFragment : BaseFragment(){
 //
 //        realm.addChangeListener(realmChangeListener)
 
+        search_button.setOnClickListener {
+            Intent(activity, SearchActivity::class.java).let{
+                startActivity(it)
+            }
+        }
+
+        camera_button.setOnClickListener {
+            Intent(activity, SearchActivity::class.java).let{
+                startActivity(it)
+            }
+        }
+
+        favorite_button.setOnClickListener {
+            Intent(activity, FavoriteActivity::class.java).let{
+                startActivity(it)
+            }
+        }
+
+        settings_button.setOnClickListener {
+            Intent(activity, SettingsActivity::class.java).let{
+                startActivity(it)
+            }
+        }
 
 
+
+    }
+
+    private fun takePicture(albumName: String) {
+        val intent = Intent()
+        val TAKE_CAMERA = 100
+
+        val albumPath = File(context.getExternalFilesDir(null),albumName)
+        val fileName = SimpleDateFormat("yyyyMMdd_HH_mm_ssSSS").format(Date())
+        val filePath = albumPath.toString() + File.separator + fileName + ".jpg"
+
+        val file = File(filePath)
+        val outputFileUri = Uri.fromFile(file)
+
+        intent.action = MediaStore.ACTION_IMAGE_CAPTURE
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri)
+        activity.startActivityForResult(intent, TAKE_CAMERA)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

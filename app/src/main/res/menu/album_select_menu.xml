@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/album_rename"
+        android:icon="@drawable/ic_done_black_24_dp"
+
+        android:title="앨범 이름 변경"
+
+        android:orderInCategory="0"
+        app:showAsAction="always"/>
+
+
+
+</menu>

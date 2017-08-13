@@ -57,6 +57,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/camera_button"
             android:layout_weight="1"
             android:layout_width="72dp"
             android:layout_height="match_parent">

@@ -8,9 +8,6 @@
         android:id="@+id/album_select"
         android:title="앨범 선택" />
     <item
-        android:id="@+id/album_information"
-        android:title="앨범 상세정보" />
-    <item
         android:id="@+id/album_delete"
         android:title="앨범 삭제" />
 

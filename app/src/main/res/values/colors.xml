@@ -14,6 +14,7 @@
     <color name="window_background">@color/univcam_white</color>
     <color name="stroke">@color/light_grey</color>
     <color name="like_button">@color/warm_pink</color>
+    <color name="image_selected">@color/charcoal_grey</color>
 
 
 

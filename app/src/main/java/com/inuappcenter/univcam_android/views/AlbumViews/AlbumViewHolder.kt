@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.*
 import com.inuappcenter.univcam_android.entites.ItemClickListener
-import kotlinx.android.synthetic.main.list_album.view.*
+import kotlinx.android.synthetic.main.album_item.view.*
 
 /**
  * Created by ichaeeun on 2017. 7. 29..

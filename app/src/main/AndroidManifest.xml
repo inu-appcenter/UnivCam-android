@@ -33,8 +33,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.AuthRejectActivity"
-            android:theme="@style/SplashTheme"></activity>
-        <activity android:name=".activities.AlbumDetailActivity"></activity>
+            android:theme="@style/SplashTheme" />
+        <activity android:name=".activities.AlbumDetailActivity" />
+        <activity android:name=".activities.AlbumSelectActivity"></activity>
     </application>
 
 </manifest>
