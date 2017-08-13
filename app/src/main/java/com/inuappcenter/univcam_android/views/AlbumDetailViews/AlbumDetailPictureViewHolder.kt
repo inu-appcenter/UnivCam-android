@@ -4,17 +4,16 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.inuappcenter.univcam_android.R
-import com.inuappcenter.univcam_android.fragments.AlbumSelectFragment
+import com.inuappcenter.univcam_android.fragments.AlbumDetailFragment
 import kotlinx.android.synthetic.main.album_detail_picture_item.view.*
 
 /**
  * Created by ichaeeun on 2017. 8. 13..
  */
 
-class AlbumDetailPictureViewHolder(var view :View, var selectfragment: AlbumSelectFragment): RecyclerView.ViewHolder(view), View.OnClickListener {
+class AlbumDetailPictureViewHolder(var view :View, var selectfragment: AlbumDetailFragment): RecyclerView.ViewHolder(view), View.OnClickListener {
 
 
     var a: Boolean =  true

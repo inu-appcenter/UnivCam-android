@@ -31,7 +31,7 @@
 
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/fragment_album_toolbar"
+                    android:id="@+id/fragment_album_detail_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:outlineProvider="paddedBounds"

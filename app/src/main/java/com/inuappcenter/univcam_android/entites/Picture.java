@@ -17,6 +17,8 @@ public class Picture extends RealmObject {
     @Required
     private Date date;
 
+    private String yearMonthDay;
+
     @Required
     private String categoryName;
 
@@ -24,9 +26,10 @@ public class Picture extends RealmObject {
 
     }
 
-    public Picture(String picturePath, Date date, String categoryName) {
+    public Picture(String picturePath, Date date, String yearMonthDay, String categoryName) {
         this.picturePath = picturePath;
         this.date = date;
+        this.yearMonthDay = yearMonthDay;
         this.categoryName = categoryName;
     }
 
@@ -44,6 +47,14 @@ public class Picture extends RealmObject {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getYearMonthDay() {
+        return yearMonthDay;
+    }
+
+    public void setYearMonthDay(String yearMonthDay) {
+        this.yearMonthDay = yearMonthDay;
     }
 
     public String getCategoryName() {

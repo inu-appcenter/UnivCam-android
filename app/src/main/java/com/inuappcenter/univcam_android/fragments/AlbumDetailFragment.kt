@@ -6,14 +6,12 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.inuappcenter.univcam_android.R
 import com.inuappcenter.univcam_android.database.RealmHelper
 import com.inuappcenter.univcam_android.views.AlbumDetailViews.AlbumDetailViewAdapter
 import io.realm.Realm
-import kotlinx.android.synthetic.main.fragment_album.*
+import kotlinx.android.synthetic.main.fragment_album_detail.*
 
 
 /**
@@ -44,12 +42,14 @@ class AlbumDetailFragment : Fragment() {
         setHasOptionsMenu(true)
         return inflater!!.inflate(R.layout.fragment_album_detail, container, false)
 
+
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).setSupportActionBar(fragment_album_toolbar)
+        (activity as AppCompatActivity).setSupportActionBar(fragment_album_detail_toolbar)
 
+        fragment_album_detail_toolbar.title = albumName
 
         recyclerview.let{
             var linerlayoutManager = LinearLayoutManager(activity)
@@ -65,6 +65,17 @@ class AlbumDetailFragment : Fragment() {
         realmHelper.retrieveFromDB()
         mAlbumViewAdapter = AlbumDetailViewAdapter(this, activity, realmHelper.retrieveAlbumDetail(albumName))
         recyclerview.adapter = mAlbumViewAdapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.menu_detail_album, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return super.onOptionsItemSelected(item)
+
+
     }
 
 }

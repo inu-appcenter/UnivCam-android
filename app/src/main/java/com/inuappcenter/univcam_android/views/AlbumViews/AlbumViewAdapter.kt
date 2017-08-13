@@ -12,7 +12,6 @@ import com.inuappcenter.univcam_android.R
 import com.inuappcenter.univcam_android.activities.AlbumDetailActivity
 import com.inuappcenter.univcam_android.database.RealmHelper
 import com.inuappcenter.univcam_android.entites.Album
-import com.inuappcenter.univcam_android.entites.ItemClickListener
 import com.inuappcenter.univcam_android.entites.Picture
 import com.inuappcenter.univcam_android.fragments.AlbumFragment
 import io.realm.Realm
@@ -124,7 +123,8 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
         var date = Date()
         val albumPath = File(context.getExternalFilesDir(null),albumName)
         val fileName = SimpleDateFormat("yyyyMMdd_HH_mm_ssSSS").format(date)
-        val category = SimpleDateFormat("yyyy년 MM월 HH일").format(date)
+        val category = SimpleDateFormat("yyyy년 MM월 dd일").format(date)
+        val yearMonthday = SimpleDateFormat("yyyyMMdd").format(date)
         val filePath = albumPath.toString() + File.separator + fileName + ".jpg"
 
         val file = File(filePath)
@@ -133,7 +133,7 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
         intent.action = MediaStore.ACTION_IMAGE_CAPTURE
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri)
         context.startActivityForResult(intent, TAKE_CAMERA)
-        var picture: Picture = Picture(file.toString(), date, category)
+        var picture: Picture = Picture(file.toString(), date,yearMonthday, category)
 
         realmHelper.savePicture(albumName, picture)
     }

@@ -109,21 +109,13 @@ public class RealmHelper {
         return lates;
     }
 
-    //
-    String headerTitle;
 
-    ArrayList<Picture> pictureList;
-    Date date;
-    //
-    // TODO: 앨범 detail페이지 검색
 
     public ArrayList<AlbumDetail> retrieveAlbumDetail(final String albumName) {
         ArrayList<AlbumDetail> albumDetails = new ArrayList<>();
-        RealmResults<Picture> picturesList = realm.where(Picture.class).distinct("date");
 
-//        Album album = realm.where(Album.class).equalTo("albumName",albumName).findFirst();
-//        RealmResults<Album> albums = realm.where(Album.class).equalTo("albumName",albumName).findAll();
-//        RealmList<Picture> pictureList = album.getPictures();
+        Album album2 = realm.where(Album.class).equalTo("albumName", albumName).findFirst();
+        RealmResults<Picture> picturesList = album2.getPictures().where().distinct("yearMonthDay");
 
         for(Picture picture: picturesList) {
             Date date = picture.getDate();
@@ -133,24 +125,20 @@ public class RealmHelper {
                                                 .equalTo("albumName", albumName)
                                                 .equalTo("pictures.date", date)
                                                 .findFirst();
+            if (album != null ) {
+                RealmList<Picture> picutreList2 = album.getPictures();
 
-            RealmList<Picture> picutreList2 = album.getPictures();
-
-            ArrayList<Picture> pictures = new ArrayList<>();
-            for(Picture picture2 : picutreList2) {
-                pictures.add(picture2);
+                ArrayList<Picture> pictures = new ArrayList<>();
+                for (Picture picture2 : picutreList2) {
+                    pictures.add(picture2);
+                }
+                AlbumDetail albumDetail = new AlbumDetail(headerTitle, pictures, date);
+                albumDetails.add(albumDetail);
             }
-            AlbumDetail albumDetail = new AlbumDetail(headerTitle,pictures,date);
-            albumDetails.add(albumDetail);
 
         }
-
         Collections.sort(albumDetails);
         return albumDetails;
-
-
-
-
     }
 
 
