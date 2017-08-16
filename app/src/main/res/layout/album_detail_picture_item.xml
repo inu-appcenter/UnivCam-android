@@ -15,6 +15,9 @@
         android:adjustViewBounds="true"/>
 
     <CheckBox
+        android:selectAllOnFocus="true"
+        android:clickable="true"
+        android:longClickable="true"
         android:buttonTint="@color/window_background"
         android:id="@+id/checkbox"
         android:layout_width="34dp"

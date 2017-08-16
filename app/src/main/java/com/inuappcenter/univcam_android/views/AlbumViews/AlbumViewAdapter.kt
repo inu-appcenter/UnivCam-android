@@ -59,7 +59,7 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
         holder.is_favorite.setChecked(item.favorite)
         holder.album_menu.setOnClickListener {
             var popupMenu = PopupMenu(context, holder.album_menu)
-            popupMenu.inflate(R.menu.album_menu)
+            popupMenu.inflate(R.menu.menu_album)
             popupMenu.setOnMenuItemClickListener{
                 when(it.itemId) {
                     R.id.text_name -> {

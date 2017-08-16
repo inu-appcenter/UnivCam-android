@@ -42,6 +42,8 @@ class AlbumDetailViewAdapter(var fragment: AlbumDetailFragment, var context: Act
             it.setNestedScrollingEnabled(false)  // TODO : nestedscroll
         }
 
+
+
         Realm.init(context)
         realm = Realm.getDefaultInstance()
 

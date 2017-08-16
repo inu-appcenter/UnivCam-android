@@ -42,7 +42,7 @@ class FavoriteViewAdapter(var context: Activity, var albumList: ArrayList<Album>
         holder.tv_quantity.setText("${item.quantity}장의 사진")
         holder.album_menu.setOnClickListener {
             var popupMenu = PopupMenu(context, holder.album_menu)
-            popupMenu.inflate(R.menu.album_menu)
+            popupMenu.inflate(R.menu.menu_album)
             popupMenu.setOnMenuItemClickListener{
                 when(it.itemId) {
                     R.id.text_name -> {

@@ -10,10 +10,8 @@ import android.widget.CheckBox
 import com.inuappcenter.univcam_android.R
 import com.inuappcenter.univcam_android.database.RealmHelper
 import com.inuappcenter.univcam_android.entites.Album
-import com.inuappcenter.univcam_android.views.AlbumViews.AlbumViewAdapter
 import com.inuappcenter.univcam_android.views.AlbumViews.AlbumViewSelectAdapter
 import io.realm.Realm
-import kotlinx.android.synthetic.main.fragment_album.*
 import kotlinx.android.synthetic.main.fragment_album_select.*
 
 
@@ -70,7 +68,7 @@ class AlbumSelectFragment : BaseFragment() {
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.album_select_menu, menu)
+        inflater?.inflate(R.menu.menu_album_select, menu)
 
 
 

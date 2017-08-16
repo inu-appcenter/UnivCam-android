@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/album_rename"
+        android:title="앨범 이름 변경" />
+    <item
+        android:id="@+id/album_select"
+        android:title="앨범 선택" />
+    <item
+        android:id="@+id/album_delete"
+        android:title="앨범 삭제" />
+
+</menu>

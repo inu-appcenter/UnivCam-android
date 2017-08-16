@@ -13,6 +13,7 @@ class AlbumDetailViewHolder(view : View): RecyclerView.ViewHolder(view){
     val headerTitle: TextView = itemView.albumName
     val pictureRecyclerview: RecyclerView = itemView.recyclerview
 
+
     //TODO: Kotlin 더 공부!
 //    val tvTitle: TextView by lazy {
 //        view.findViewById<TextView>(R.id.title) as TextView

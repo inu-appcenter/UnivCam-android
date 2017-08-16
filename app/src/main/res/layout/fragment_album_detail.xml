@@ -35,7 +35,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:outlineProvider="paddedBounds"
-                    android:paddingLeft="16dp"
                     android:scrollbarAlwaysDrawHorizontalTrack="true"
                     android:titleTextColor="@color/text_primary"
                     app:layout_collapseMode="pin"
