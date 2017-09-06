@@ -33,16 +33,12 @@
 
 
     <style name="ActionBar.nameText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textSize">50dp</item>
-        <item name="android:textColor">@color/univcam_white</item>
-        <item name="android:width">160dp</item>
-        <item name="android:height">48dp</item>
-        <item name="android:layout_marginLeft">24dp</item>
-        <item name="android:layout_marginTop">17dp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="AppThemeToolBar" parent="Theme.AppCompat.Light">
-        <item name="android:background">@color/univcam_white</item>
+        <!--<item name="android:background">@color/univcam_white</item>-->
         <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorPrimary">@color/primary</item>
         <item name="colorAccent">@color/accent</item>

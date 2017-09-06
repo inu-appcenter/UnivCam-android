@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/window_background"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingTop="36dp"
+    android:paddingRight="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Spemer (Hyouk Seo)"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:textColor="@color/text_secondary"
+        android:lineSpacingExtra="8.7sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <RelativeLayout
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+
+        <Button
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:id="@+id/version_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="@color/text_primary"
+            android:lineSpacingExtra="14.4sp"
+            android:text="이름"
+            />
+
+        <TextView
+            android:gravity="right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:id="@+id/developer_github"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="@color/text_secondary"
+            android:lineSpacingExtra="14.4sp"
+            android:text="서혁"
+            />
+    </RelativeLayout>
+
+    <View
+        android:background="@color/stroke"
+        android:layout_width="328dp"
+        android:layout_height="1dp"/>
+
+    <RelativeLayout
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+
+        <Button
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:id="@+id/version_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="@color/text_primary"
+            android:lineSpacingExtra="14.4sp"
+            android:text="이메일"
+            />
+
+        <TextView
+            android:gravity="right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:id="@+id/developer_github"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="@color/text_secondary"
+            android:lineSpacingExtra="14.4sp"
+            android:text="ghsspower@gmail.com"
+            />
+    </RelativeLayout>
+
+
+    <View
+        android:background="@color/stroke"
+        android:layout_width="328dp"
+        android:layout_height="1dp"/>
+
+    <RelativeLayout
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+
+        <Button
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:id="@+id/version_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="@color/text_primary"
+            android:lineSpacingExtra="14.4sp"
+            android:text="GitHub"
+            />
+
+        <TextView
+            android:gravity="right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:id="@+id/developer_github"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="@color/text_secondary"
+            android:lineSpacingExtra="14.4sp"
+            android:text="spemer"
+            />
+    </RelativeLayout>
+
+    <View
+        android:background="@color/stroke"
+        android:layout_width="328dp"
+        android:layout_height="1dp"/>
+
+    <RelativeLayout
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+
+        <Button
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:id="@+id/portfolio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="@color/text_primary"
+            android:lineSpacingExtra="14.4sp"
+            android:text="포트폴리오"
+            />
+
+        <TextView
+            android:gravity="right"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:id="@+id/developer_github"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="@color/text_secondary"
+            android:lineSpacingExtra="14.4sp"
+            android:text="https://spemer.com"
+            />
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

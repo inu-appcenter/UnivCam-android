@@ -3,20 +3,21 @@ package com.inuappcenter.univcam_android.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.*
 import android.widget.Toast
 import com.inuappcenter.univcam_android.R
-import com.inuappcenter.univcam_android.activities.AlbumSelectActivity
-import com.inuappcenter.univcam_android.activities.FavoriteActivity
-import com.inuappcenter.univcam_android.activities.SearchActivity
-import com.inuappcenter.univcam_android.activities.SettingsActivity
+import com.inuappcenter.univcam_android.activities.*
 import com.inuappcenter.univcam_android.database.RealmHelper
 import com.inuappcenter.univcam_android.dialogs.AlbumDialogFragment
 import com.inuappcenter.univcam_android.dialogs.AlbumDialogInterface
@@ -34,8 +35,6 @@ import java.util.*
 
 class AlbumFragment : BaseFragment(){
 
-
-
     val TAKE_CAMERA = 100
     private val TAG = AlbumFragment::class.java.simpleName
     private lateinit var realm: Realm
@@ -48,6 +47,7 @@ class AlbumFragment : BaseFragment(){
 
 
 
+
     companion object {
         fun newInstance(): AlbumFragment {
             return AlbumFragment()
@@ -57,12 +57,40 @@ class AlbumFragment : BaseFragment(){
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
+
         return inflater!!.inflate(R.layout.fragment_album, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(fragment_album_toolbar)
+
+        /** 툴바 bold체 */
+        val tf: Typeface = Typeface.createFromAsset(context.getAssets(), "nanumbarungothicbold.ttf")
+        collapsingToolbarLayout.setCollapsedTitleTypeface(tf)
+        collapsingToolbarLayout.setExpandedTitleTypeface(tf)
+        collapsingToolbarLayout.setCollapsedTitleTextColor(resources.getColor(R.color.text_primary))
+        collapsingToolbarLayout.setExpandedTitleColor(resources.getColor(R.color.text_primary))
+
+
+
+        appBarLayout.addOnOffsetChangedListener{ appBarLayout, verticalOffset ->
+            if (Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()) {
+                // Collapsed
+//                toolbar_line.visibility = View.VISIBLE
+//                appBarLayout.setBackgroundRe?source(R.drawable.univ_stroke)
+
+            } else if (verticalOffset == 0) {
+                // Expanded
+//                toolbar_line.visibility = View.GONE
+//                appBarLayout.setBackgroundColor(resources.getColor(R.color.univcam_white))
+            } else {
+                // Somewhere in between
+//                toolbar_line.visibility = View.VISIBLE
+//                appBarLayout.setBackgroundResource(R.drawable.univ_stroke)
+            }
+
+        }
 
 
         recyclerview.let{
@@ -87,27 +115,47 @@ class AlbumFragment : BaseFragment(){
 //
 //        realm.addChangeListener(realmChangeListener)
 
+        home_image.setColorFilter(resources.getColor(R.color.text_primary))
+
+
+        home_button.setOnClickListener {
+            Intent(activity, AlbumActivity::class.java).let{
+                startActivity(it)
+                activity.overridePendingTransition(0, 0)
+                activity.finish()
+            }
+        }
+
         search_button.setOnClickListener {
             Intent(activity, SearchActivity::class.java).let{
                 startActivity(it)
+                activity.overridePendingTransition(0, 0)
+
+                activity.finish()
             }
         }
 
         camera_button.setOnClickListener {
             Intent(activity, AlbumSelectActivity::class.java).let{
                 startActivity(it)
+                activity.overridePendingTransition(0, 0)
+                activity.finish()
             }
         }
 
         favorite_button.setOnClickListener {
             Intent(activity, FavoriteActivity::class.java).let{
                 startActivity(it)
+                activity.overridePendingTransition(0, 0)
+                activity.finish()
             }
         }
 
         settings_button.setOnClickListener {
             Intent(activity, SettingsActivity::class.java).let{
                 startActivity(it)
+                activity.overridePendingTransition(0, 0)
+                activity.finish()
             }
         }
 
@@ -133,6 +181,12 @@ class AlbumFragment : BaseFragment(){
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_main, menu)
+        var folderDrawable = menu?.findItem(R.id.create_foler)?.icon
+        folderDrawable?.setColorFilter(resources.getColor(R.color.text_secondary), PorterDuff.Mode.SRC_ATOP)
+
+        var sortDrawable = menu?.findItem(R.id.sort)?.icon
+        sortDrawable?.setColorFilter(resources.getColor(R.color.text_secondary), PorterDuff.Mode.SRC_ATOP)
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -194,3 +248,4 @@ class AlbumFragment : BaseFragment(){
 
 
 }
+

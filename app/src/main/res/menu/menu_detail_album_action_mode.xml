@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/delete_menu"
-        android:icon="@drawable/ic_delete_24_dp"
+        android:icon="@drawable/ic_delete_black_24dp"
 
         android:orderInCategory="0"
         android:title="menu"
@@ -15,7 +15,7 @@
 
     <item
         android:id="@+id/option_menu"
-        android:icon="@drawable/ic_menu_24_dp"
+        android:icon="@drawable/ic_menu_white_24dp"
         android:orderInCategory="0"
         android:title="menu"
         app:showAsAction="always">
