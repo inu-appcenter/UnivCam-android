@@ -3,6 +3,7 @@ package com.inuappcenter.univcam_android.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -51,6 +52,12 @@ class FavoriteFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(fragment_album_toolbar)
 
+        val tf: Typeface = Typeface.createFromAsset(context.getAssets(), "nanumbarungothicbold.ttf")
+        collapsingToolbarLayout.setCollapsedTitleTypeface(tf)
+        collapsingToolbarLayout.setExpandedTitleTypeface(tf)
+        collapsingToolbarLayout.setCollapsedTitleTextColor(resources.getColor(R.color.text_primary))
+        collapsingToolbarLayout.setExpandedTitleColor(resources.getColor(R.color.text_primary))
+
 
         recyclerview.let{
             it.layoutManager = GridLayoutManager(activity, 2)
@@ -66,32 +73,44 @@ class FavoriteFragment : BaseFragment() {
         recyclerview.adapter = mAlbumViewAdapter
 
 
+        favorite_image.setColorFilter(resources.getColor(R.color.text_primary))
+
         home_button.setOnClickListener {
             Intent(activity, AlbumActivity::class.java).let{
                 startActivity(it)
+                activity.overridePendingTransition(0, 0)
+                activity.finish()
             }
         }
         search_button.setOnClickListener {
             Intent(activity, SearchActivity::class.java).let{
                 startActivity(it)
+                activity.overridePendingTransition(0, 0)
+                activity.finish()
             }
         }
 
         camera_button.setOnClickListener {
             Intent(activity, AlbumSelectActivity::class.java).let{
                 startActivity(it)
+                activity.overridePendingTransition(0, 0)
+                activity.finish()
             }
         }
 
         favorite_button.setOnClickListener {
             Intent(activity, FavoriteActivity::class.java).let{
                 startActivity(it)
+                activity.overridePendingTransition(0, 0)
+                activity.finish()
             }
         }
 
         settings_button.setOnClickListener {
             Intent(activity, SettingsActivity::class.java).let{
                 startActivity(it)
+                activity.overridePendingTransition(0, 0)
+                activity.finish()
             }
         }
     }

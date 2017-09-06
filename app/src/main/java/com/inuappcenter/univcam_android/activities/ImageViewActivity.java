@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.inuappcenter.univcam_android.R;
 
 import java.io.File;
@@ -30,13 +31,15 @@ import java.io.IOException;
  */
 
 public class ImageViewActivity extends AppCompatActivity{
-    ImageView mImageView;
-    PinchZoomImageView mPinchZoomImageView;
+//    ImageView mImageView;
+   // PinchZoomImageView mPinchZoomImageView;
     RelativeLayout mContainer;
 
     private Uri mImageUri;
     private Animator mCurrentAnimator;
     private int mLongAnimationDuration;
+    PhotoView photoView;
+
 
     String cameraPath;
 
@@ -50,28 +53,31 @@ public class ImageViewActivity extends AppCompatActivity{
         cameraPath = getIntent().getExtras().getString("cameraPath");
 
         mImageUri=Uri.fromFile(new File(cameraPath));
+        photoView = (PhotoView) findViewById(R.id.imageView);
 
-
-        mImageView = (ImageView) findViewById(R.id.imageView);
-        mPinchZoomImageView = (PinchZoomImageView) findViewById(R.id.pinchZoomImageView);
+//        mImageView = (ImageView) findViewById(R.id.imageView);
+       // mPinchZoomImageView = (PinchZoomImageView) findViewById(R.id.pinchZoomImageView);
         mContainer = (RelativeLayout)findViewById(R.id.container);
 
             Glide.with(getApplicationContext())
                     .load(cameraPath)
-                    .into(mImageView);
+                    .into(photoView);
+//        photoView.setImageResource(R.drawable.image);
 
-        mContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (b) {
-                    pinchZoomPan();
-                    b = false;
-                } else {
-                    pinchOriginal();
-                    b = true;
-                }
-            }
-        });
+//        mContainer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (b) {
+//                    pinchZoomPan();
+//                    b = false;
+//                } else {
+//                    pinchOriginal();
+//                    b = true;
+//                }
+//            }
+//        });
+
+
 
         mLongAnimationDuration = getResources().getInteger(android.R.integer.config_longAnimTime);
 
@@ -123,88 +129,88 @@ public class ImageViewActivity extends AppCompatActivity{
         return bitmap;
     }
 
-    private void zoomImageFromThumb() {
-        if(mCurrentAnimator != null) {
-            mCurrentAnimator.cancel();
-        }
-
-        Glide.with(this)
-                .load(cameraPath)
-                .into(mPinchZoomImageView);
-
-        Rect startBounds = new Rect();
-        Rect finalBounds = new Rect();
-        Point globalOffset = new Point();
-        mImageView.getGlobalVisibleRect(startBounds);
-        findViewById(R.id.container)
-                .getGlobalVisibleRect(finalBounds, globalOffset);
-        startBounds.offset(-globalOffset.x, -globalOffset.y);
-        finalBounds.offset(-globalOffset.x, -globalOffset.y);
-
-        float startScale;
-        if((float) finalBounds.width() /finalBounds.height() >
-                (float) startBounds.width() / startBounds.height()) {
-            startScale = (float) startBounds.height() / finalBounds.height();
-            float startWidth = (float) startScale * finalBounds.width();
-            float deltaWidth = (startWidth - startBounds.width()) / 2;
-            startBounds.left -= deltaWidth;
-            startBounds.right += deltaWidth;
-        } else {
-            startScale = (float) startBounds.width() / finalBounds.width();
-            float startHeight = (float) startScale * finalBounds.height();
-            float deltaHeight = (startHeight - startBounds.height()) / 2;
-            startBounds.top -= deltaHeight;
-            startBounds.bottom += deltaHeight;
-        }
-
-        mImageView.setAlpha(0f);
-        mPinchZoomImageView.setVisibility(View.VISIBLE);
-
-        mPinchZoomImageView.setPivotX(0f);
-        mPinchZoomImageView.setPivotY(0f);
-
-        AnimatorSet set = new AnimatorSet();
-        set
-                .play(ObjectAnimator.ofFloat(mPinchZoomImageView, View.X, startBounds.left, finalBounds.left))
-                .with(ObjectAnimator.ofFloat(mPinchZoomImageView, View.Y, startBounds.top, finalBounds.top))
-                .with(ObjectAnimator.ofFloat(mPinchZoomImageView, View.SCALE_X, startScale, 1f))
-                .with(ObjectAnimator.ofFloat(mPinchZoomImageView, View.SCALE_Y, startScale, 1f));
-        set.setDuration(mLongAnimationDuration);
-        set.setInterpolator(new DecelerateInterpolator());
-        set.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                super.onAnimationCancel(animation);
-
-                mCurrentAnimator = null;
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-
-                mCurrentAnimator = null;
-            }
-        });
-        set.start();
-        mCurrentAnimator = set;
-    }
-
-    private void pinchZoomPan() {
-        mPinchZoomImageView.setImageUri(mImageUri);
-//        Glide.with(getApplicationContext())
+//    private void zoomImageFromThumb() {
+//        if(mCurrentAnimator != null) {
+//            mCurrentAnimator.cancel();
+//        }
+//
+//        Glide.with(this)
 //                .load(cameraPath)
 //                .into(mPinchZoomImageView);
-        mImageView.setAlpha(0.f);
-        mPinchZoomImageView.setVisibility(View.VISIBLE);
-    }
-
-    private void pinchOriginal() {
-        mPinchZoomImageView.setImageUri(mImageUri);
-//        Glide.with(getApplicationContext())
-//                .load(cameraPath)
-//                .into(mPinchZoomImageView);
-        mImageView.setAlpha(1.f);
-        mPinchZoomImageView.setVisibility(View.INVISIBLE);
-    }
+//
+//        Rect startBounds = new Rect();
+//        Rect finalBounds = new Rect();
+//        Point globalOffset = new Point();
+//        mImageView.getGlobalVisibleRect(startBounds);
+//        findViewById(R.id.container)
+//                .getGlobalVisibleRect(finalBounds, globalOffset);
+//        startBounds.offset(-globalOffset.x, -globalOffset.y);
+//        finalBounds.offset(-globalOffset.x, -globalOffset.y);
+//
+//        float startScale;
+//        if((float) finalBounds.width() /finalBounds.height() >
+//                (float) startBounds.width() / startBounds.height()) {
+//            startScale = (float) startBounds.height() / finalBounds.height();
+//            float startWidth = (float) startScale * finalBounds.width();
+//            float deltaWidth = (startWidth - startBounds.width()) / 2;
+//            startBounds.left -= deltaWidth;
+//            startBounds.right += deltaWidth;
+//        } else {
+//            startScale = (float) startBounds.width() / finalBounds.width();
+//            float startHeight = (float) startScale * finalBounds.height();
+//            float deltaHeight = (startHeight - startBounds.height()) / 2;
+//            startBounds.top -= deltaHeight;
+//            startBounds.bottom += deltaHeight;
+//        }
+//
+//        mImageView.setAlpha(0f);
+//        mPinchZoomImageView.setVisibility(View.VISIBLE);
+//
+//        mPinchZoomImageView.setPivotX(0f);
+//        mPinchZoomImageView.setPivotY(0f);
+//
+//        AnimatorSet set = new AnimatorSet();
+//        set
+//                .play(ObjectAnimator.ofFloat(mPinchZoomImageView, View.X, startBounds.left, finalBounds.left))
+//                .with(ObjectAnimator.ofFloat(mPinchZoomImageView, View.Y, startBounds.top, finalBounds.top))
+//                .with(ObjectAnimator.ofFloat(mPinchZoomImageView, View.SCALE_X, startScale, 1f))
+//                .with(ObjectAnimator.ofFloat(mPinchZoomImageView, View.SCALE_Y, startScale, 1f));
+//        set.setDuration(mLongAnimationDuration);
+//        set.setInterpolator(new DecelerateInterpolator());
+//        set.addListener(new AnimatorListenerAdapter() {
+//            @Override
+//            public void onAnimationCancel(Animator animation) {
+//                super.onAnimationCancel(animation);
+//
+//                mCurrentAnimator = null;
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animator animation) {
+//                super.onAnimationEnd(animation);
+//
+//                mCurrentAnimator = null;
+//            }
+//        });
+//        set.start();
+//        mCurrentAnimator = set;
+//    }
+//
+//    private void pinchZoomPan() {
+//        mPinchZoomImageView.setImageUri(mImageUri);
+////        Glide.with(getApplicationContext())
+////                .load(cameraPath)
+////                .into(mPinchZoomImageView);
+//        mImageView.setAlpha(0.f);
+//        mPinchZoomImageView.setVisibility(View.VISIBLE);
+//    }
+//
+//    private void pinchOriginal() {
+//        mPinchZoomImageView.setImageUri(mImageUri);
+////        Glide.with(getApplicationContext())
+////                .load(cameraPath)
+////                .into(mPinchZoomImageView);
+//        mImageView.setAlpha(1.f);
+//        mPinchZoomImageView.setVisibility(View.INVISIBLE);
+//    }
 }

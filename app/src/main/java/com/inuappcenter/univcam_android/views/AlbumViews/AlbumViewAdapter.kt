@@ -6,6 +6,7 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.inuappcenter.univcam_android.R
@@ -30,8 +31,10 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
     private lateinit var realmHelper: RealmHelper
 
     fun addAlbum(album: Album) {
-//        albumList.add(0, album)
-        albumList.add(album)
+        albumList.add(0, album)
+//        albumList.add(album)
+//        notifyItemInserted(0)
+
         notifyDataSetChanged()
     }
 
@@ -122,6 +125,7 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
 
         var date = Date()
         val albumPath = File(context.getExternalFilesDir(null),albumName)
+
         val fileName = SimpleDateFormat("yyyyMMdd_HH_mm_ssSSS").format(date)
         val category = SimpleDateFormat("yyyy년 MM월 dd일").format(date)
         val yearMonthday = SimpleDateFormat("yyyyMMdd").format(date)
@@ -130,6 +134,7 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
         val file = File(filePath)
         val outputFileUri = Uri.fromFile(file)
 
+        // TODO: 풀사이즈를 받음
         intent.action = MediaStore.ACTION_IMAGE_CAPTURE
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri)
         context.startActivityForResult(intent, TAKE_CAMERA)

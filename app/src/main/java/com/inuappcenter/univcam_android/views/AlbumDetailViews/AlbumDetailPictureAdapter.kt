@@ -38,7 +38,9 @@ class AlbumDetailPictureAdapter(var fragment: AlbumDetailFragment, var albumList
         } else {
             holder.checkbox.visibility = View.VISIBLE
             holder.checkbox.isChecked = false
+
         }
+        // TODO: 클릭할때 상세 사진보기페이지로 넘어감
         holder.picture.setOnClickListener {
             var intent: Intent = Intent(fragment.activity, ImageViewActivity::class.java)
             intent.putExtra("cameraPath", item.picturePath)

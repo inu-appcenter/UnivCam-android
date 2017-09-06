@@ -35,7 +35,7 @@ class AlbumDetailPictureViewHolder(var view :View, var fragment: AlbumDetailFrag
             fragment.isInActionMode = true
             fragment.mAlbumViewAdapter.notifyDataSetChanged()
             (fragment.activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-            fragment.fragment_album_detail_toolbar.setNavigationIcon(R.drawable.ic_back_24_dp)
+            fragment.fragment_album_detail_toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_black_24dp)
             fragment.fragment_album_detail_toolbar.setNavigationOnClickListener {
             fragment.activity.finish()
         }
@@ -43,6 +43,7 @@ class AlbumDetailPictureViewHolder(var view :View, var fragment: AlbumDetailFrag
 
 
         }
+
         checkbox.setOnClickListener(this)
         select_layout.setOnClickListener{
             if (b) {

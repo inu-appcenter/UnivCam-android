@@ -4,8 +4,8 @@
 
     <item
         android:id="@+id/take_picture"
-        android:icon="@drawable/ic_photo_camera_black_24_dp"
-
+        android:icon="@drawable/ic_photo_camera_black_24dp"
+        android:iconTint="@color/text_secondary"
         android:orderInCategory="0"
         android:title="menu"
         app:showAsAction="always">
@@ -13,8 +13,8 @@
 
     <item
         android:id="@+id/gallery"
-        android:icon="@drawable/ic_add_to_photos_black_24_dp"
-
+        android:icon="@drawable/ic_add_to_photos_black_24dp"
+        android:iconTint="@color/text_secondary"
         android:orderInCategory="0"
         android:title="menu"
         app:showAsAction="always">
@@ -22,8 +22,9 @@
 
 
     <item
-        android:id="@+id/sort"
-        android:icon="@drawable/ic_menu_24_dp"
+        android:id="@+id/share"
+        android:iconTint="@color/text_secondary"
+        android:icon="@drawable/ic_more_vert_black_24dp"
         android:orderInCategory="0"
         android:title="menu"
         app:showAsAction="always">

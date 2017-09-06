@@ -18,19 +18,21 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".activities.FavoriteActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:noHistory="true"
             android:name=".activities.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SettingsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".activities.AuthRejectActivity"
             android:screenOrientation="portrait"
@@ -41,9 +43,8 @@
         <activity
             android:name=".activities.AlbumSelectActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.ImageViewActivity">
-
-        </activity>
+        <activity android:name=".activities.ImageViewActivity"></activity>
+        <activity android:name=".activities.DesignerInfoActivity"></activity>
     </application>
 
 </manifest>

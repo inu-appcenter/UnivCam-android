@@ -74,6 +74,7 @@ public class RealmHelper {
         return saved;
     }
 
+
     // 즐겨찾는 앨범 업데이트
     public Boolean updateFavoriteAlbum(final String albumName, final boolean isFavorite) {
 
@@ -125,6 +126,8 @@ public class RealmHelper {
                                                 .equalTo("albumName", albumName)
                                                 .equalTo("pictures.date", date)
                                                 .findFirst();
+
+
             if (album != null ) {
                 RealmList<Picture> picutreList2 = album.getPictures();
 
@@ -154,6 +157,8 @@ public class RealmHelper {
 
 
     // TODO: 앨범 정렬, 앨범명 수정, 앨범 삭제, 앨범 이동, 사진 이동, 사진 카테고리 변경
+
+
 
 
 

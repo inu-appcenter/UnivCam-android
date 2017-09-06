@@ -2,23 +2,21 @@ package com.inuappcenter.univcam_android.fragments
 
 
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.graphics.Typeface
 import android.os.Bundle
-import android.os.Environment
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.*
 import android.widget.CheckBox
 import com.inuappcenter.univcam_android.R
 import com.inuappcenter.univcam_android.database.RealmHelper
-import com.inuappcenter.univcam_android.dialogs.AlbumDialogFragment
-import com.inuappcenter.univcam_android.entites.Album
 import com.inuappcenter.univcam_android.entites.AlbumDetail
 import com.inuappcenter.univcam_android.views.AlbumDetailViews.AlbumDetailViewAdapter
 import io.realm.Realm
 import kotlinx.android.synthetic.main.fragment_album_detail.*
-import java.io.File
 import java.util.*
 
 
@@ -63,11 +61,19 @@ class AlbumDetailFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(fragment_album_detail_toolbar)
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        fragment_album_detail_toolbar.setNavigationIcon(R.drawable.ic_back_24_dp)
+        fragment_album_detail_toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_black_24dp)
+        fragment_album_detail_toolbar.navigationIcon?.setColorFilter(resources.getColor(R.color.text_secondary), PorterDuff.Mode.SRC_ATOP)
         fragment_album_detail_toolbar.setNavigationOnClickListener {
             activity.finish()
         }
         fragment_album_detail_toolbar.title = albumName
+
+        val tf: Typeface = Typeface.createFromAsset(context.getAssets(), "nanumbarungothicbold.ttf")
+        collapsingToolbarLayout.setCollapsedTitleTypeface(tf)
+        collapsingToolbarLayout.setExpandedTitleTypeface(tf)
+        collapsingToolbarLayout.setCollapsedTitleTextColor(resources.getColor(R.color.text_primary))
+        collapsingToolbarLayout.setExpandedTitleColor(resources.getColor(R.color.text_primary))
+
 
 
         recyclerview.let{
@@ -79,16 +85,49 @@ class AlbumDetailFragment : Fragment(){
 
         Realm.init(activity)
         realm = Realm.getDefaultInstance()
+        Log.d("RealmURL", realm.path)
+
+
+        //TODO: 지울것
+//        var exportRealmFile: File? = null
+//        try {
+//                // get or create an "export.realm" file
+//                exportRealmFile = File(activity.externalCacheDir, "export.realm")
+//                Log.d("externalCacheDir",exportRealmFile.toString() )
+//
+//                // if "export.realm" already exists, delete
+//                exportRealmFile.delete()
+//
+//                // copy current realm to "export.realm"
+//                realm.writeCopyTo(exportRealmFile)
+//
+//            } catch (e: IOException) {
+//                e.printStackTrace()
+//            }
+
+
 
         realmHelper = RealmHelper(realm)
         realmHelper.retrieveFromDB()
         originalList = realmHelper.retrieveAlbumDetail(albumName)
         mAlbumViewAdapter = AlbumDetailViewAdapter(this, activity, originalList)
         recyclerview.adapter = mAlbumViewAdapter
+        realm.close()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_detail_album, menu)
+        var pictureDrawable = menu?.findItem(R.id.take_picture)?.icon
+        pictureDrawable?.setColorFilter(resources.getColor(R.color.text_secondary), PorterDuff.Mode.SRC_ATOP)
+
+        var galleryDrawable = menu?.findItem(R.id.gallery)?.icon
+        galleryDrawable?.setColorFilter(resources.getColor(R.color.text_secondary), PorterDuff.Mode.SRC_ATOP)
+
+        var shareDrawable = menu?.findItem(R.id.share)?.icon
+        shareDrawable?.setColorFilter(resources.getColor(R.color.text_secondary), PorterDuff.Mode.SRC_ATOP)
+
+
         super.onCreateOptionsMenu(menu, inflater)
 
     }
