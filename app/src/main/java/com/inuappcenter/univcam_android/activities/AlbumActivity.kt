@@ -15,4 +15,10 @@ class AlbumActivity : BaseFragmentActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(0, 0)
+        finish()
+    }
 }

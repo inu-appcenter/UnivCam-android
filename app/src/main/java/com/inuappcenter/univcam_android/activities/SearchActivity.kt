@@ -8,4 +8,10 @@ class SearchActivity : BaseFragmentActivity() {
     override fun createFragment(): Fragment {
         return SearchFragment.newInstance()
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(0, 0)
+        finish()
+    }
 }

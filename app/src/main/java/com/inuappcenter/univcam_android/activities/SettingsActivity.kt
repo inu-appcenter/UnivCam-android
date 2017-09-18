@@ -8,4 +8,10 @@ class SettingsActivity : BaseFragmentActivity() {
     override fun createFragment(): Fragment {
         return SettingsFragment.newInstance()
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(0, 0)
+        finish()
+    }
 }

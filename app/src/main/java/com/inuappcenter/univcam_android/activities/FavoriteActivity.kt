@@ -8,4 +8,10 @@ class FavoriteActivity : BaseFragmentActivity() {
     override fun createFragment(): Fragment {
         return FavoriteFragment.newInstance()
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(0, 0)
+        finish()
+    }
 }
