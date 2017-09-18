@@ -11,6 +11,7 @@ import java.util.Date;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import io.realm.exceptions.RealmException;
 
 /**
@@ -30,7 +31,7 @@ public class RealmHelper {
 
 
 
-    // 앨범 저장
+    /** 앨범 저장 **/
     public Boolean saveAlbum(final Album album) {
         if (album == null) {
             saved = false;
@@ -51,7 +52,7 @@ public class RealmHelper {
         return saved;
     }
 
-    // 사진 저장
+    /** 사진 저장. **/
     public Boolean savePicture(final String albumName, final Picture picture) {
         if (picture == null) {
             saved = false;
@@ -74,8 +75,42 @@ public class RealmHelper {
         return saved;
     }
 
+    /** 사진 갯수 **/
+    public int countPictures(final String albumName) {
+        Album album = realm.where(Album.class).equalTo("albumName", albumName).findFirst();
+        return album.getPictures().size();
+    }
 
-    // 즐겨찾는 앨범 업데이트
+
+    /** 같은 앨범명이 있으면 true, 없으면 false */
+    public Boolean hasAlbum(final String albumName) {
+        if (albumName == null) {
+            return false;
+        } else {
+            Album album = realm.where(Album.class).equalTo("albumName", albumName).findFirst();
+            if (album == null) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    /** 최신 이미지 가져오기 **/
+    public String getLatestPicturePath(final String albumName) {
+        Album album = realm.where(Album.class).equalTo("albumName", albumName).findFirst();
+        if (album.getPictures().size() == 0) {
+            return null;
+        } else {
+            return album.getPictures().sort("date", Sort.DESCENDING).first().getPicturePath();
+        }
+
+
+
+    }
+
+
+    /** 즐겨찾는 앨범 업데이트 **/
     public Boolean updateFavoriteAlbum(final String albumName, final boolean isFavorite) {
 
         realm.executeTransaction(new Realm.Transaction() {
@@ -97,12 +132,27 @@ public class RealmHelper {
 
 
 
-    public void retrieveFromDB() {
-        albums = realm.where(Album.class).findAll();
+    /** 앨범 정렬 방법 바꿈 */
+    public void updateAlbumSorted(String sort) {
+        if (sort.equals("name")) {
+            // 이름 순
+            albums = realm.where(Album.class).findAllSorted("albumName",Sort.ASCENDING);
+        } else if (sort.equals("name_reverse")) {
+            // 이름 역순
+            albums = realm.where(Album.class).findAllSorted("albumName",Sort.DESCENDING);
+        } else if (sort.equals("time")) {
+            // 최신 순
+            albums = realm.where(Album.class).findAllSorted("albumDate",Sort.DESCENDING);
+        } else if (sort.equals("time_reverse")) {
+            // 오래된 순
+            albums = realm.where(Album.class).findAllSorted("albumDate",Sort.ASCENDING);
+        }
     }
 
-    // 전체 앨범 검색
-    public ArrayList<Album> justRefresh() {
+
+
+    /** 전체 앨범 검색 **/
+    public ArrayList<Album> getAlbums() {
         ArrayList<Album> lates = new ArrayList<>();
         for (Album album : albums) {
             lates.add(album);
@@ -112,40 +162,38 @@ public class RealmHelper {
 
 
 
+
+
+    /** 사진들 가져오기 **/
     public ArrayList<AlbumDetail> retrieveAlbumDetail(final String albumName) {
         ArrayList<AlbumDetail> albumDetails = new ArrayList<>();
 
+        ArrayList<Picture> pictures;
         Album album2 = realm.where(Album.class).equalTo("albumName", albumName).findFirst();
-        RealmResults<Picture> picturesList = album2.getPictures().where().distinct("yearMonthDay");
 
-        for(Picture picture: picturesList) {
-            Date date = picture.getDate();
-            String headerTitle = picture.getCategoryName();
+        if (album2 != null) {
+            if (album2.getPictures() != null) {
 
-            Album album = realm.where(Album.class)
-                                                .equalTo("albumName", albumName)
-                                                .equalTo("pictures.date", date)
-                                                .findFirst();
+                RealmResults<Picture> picturesList = album2.getPictures().where().distinct("yearMonthDay")
+                        .sort("yearMonthDay", Sort.DESCENDING);
 
+                for(Picture picture: picturesList) {
 
-            if (album != null ) {
-                RealmList<Picture> picutreList2 = album.getPictures();
-
-                ArrayList<Picture> pictures = new ArrayList<>();
-                for (Picture picture2 : picutreList2) {
-                    pictures.add(picture2);
+                    RealmResults<Picture> picture2 = album2.getPictures().where().equalTo("yearMonthDay", picture.getYearMonthDay()).findAllSorted("date",Sort.DESCENDING);
+                    pictures = new ArrayList<>(picture2);
+                    AlbumDetail albumDetail = new AlbumDetail(pictures.get(0).getCategoryName(), pictures, album2.getAlbumDate());
+                    albumDetails.add(albumDetail);
                 }
-                AlbumDetail albumDetail = new AlbumDetail(headerTitle, pictures, date);
-                albumDetails.add(albumDetail);
-            }
 
+            }
         }
-        Collections.sort(albumDetails);
+
+
         return albumDetails;
     }
 
 
-    // 즐겨찾는 앨범 검색
+    /** 즐겨찾는 앨범 검색 **/
     public ArrayList<Album> retrieveFavoriteAlbums() {
         ArrayList<Album> favoriteAlbums = new ArrayList<>();
         RealmResults<Album> albums = realm.where(Album.class).equalTo("isFavorite",true).findAll();
