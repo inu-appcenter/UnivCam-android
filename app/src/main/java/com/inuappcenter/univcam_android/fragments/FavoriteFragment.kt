@@ -3,8 +3,11 @@ package com.inuappcenter.univcam_android.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
@@ -52,12 +55,36 @@ class FavoriteFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(fragment_album_toolbar)
 
+        /** 툴바 bold체 */
         val tf: Typeface = Typeface.createFromAsset(context.getAssets(), "nanumbarungothicbold.ttf")
         collapsingToolbarLayout.setCollapsedTitleTypeface(tf)
         collapsingToolbarLayout.setExpandedTitleTypeface(tf)
         collapsingToolbarLayout.setCollapsedTitleTextColor(resources.getColor(R.color.text_primary))
         collapsingToolbarLayout.setExpandedTitleColor(resources.getColor(R.color.text_primary))
 
+
+        /** 툴바 밑에 line 만들기 */
+        appBarLayout.addOnOffsetChangedListener{ appBarLayout, verticalOffset ->
+            // 천천히 흐려지기
+//            toolbar_line.alpha =  Math.abs(verticalOffset).toFloat() / appBarLayout.getTotalScrollRange()
+            if (Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()) {
+                // Collapsed
+                toolbar_line.visibility = View.VISIBLE
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                }
+//                appBarLayout.setBackgroundResource(R.drawable.univ_stroke)
+
+            } else if (verticalOffset == 0) {
+                // Expanded
+                toolbar_line.visibility = View.GONE
+//                appBarLayout.setBackgroundColor(resources.getColor(R.color.univcam_white))
+            } else {
+                // Somewhere in between
+                toolbar_line.visibility = View.GONE
+//                appBarLayout.setBackgroundResource(R.drawable.univ_stroke)
+            }
+
+        }
 
         recyclerview.let{
             it.layoutManager = GridLayoutManager(activity, 2)
@@ -68,7 +95,11 @@ class FavoriteFragment : BaseFragment() {
         realm = Realm.getDefaultInstance()
 
         realmHelper = RealmHelper(realm)
-        realmHelper.retrieveFromDB()
+
+        var sharedPreferences: SharedPreferences = context.getSharedPreferences("favorite_sort", 0)
+        var sort = sharedPreferences.getString("favorite_sort", "name_reverse")
+
+        realmHelper.updateAlbumSorted(sort)
         mAlbumViewAdapter = FavoriteViewAdapter(activity, realmHelper.retrieveFavoriteAlbums())
         recyclerview.adapter = mAlbumViewAdapter
 
@@ -79,14 +110,12 @@ class FavoriteFragment : BaseFragment() {
             Intent(activity, AlbumActivity::class.java).let{
                 startActivity(it)
                 activity.overridePendingTransition(0, 0)
-                activity.finish()
             }
         }
         search_button.setOnClickListener {
             Intent(activity, SearchActivity::class.java).let{
                 startActivity(it)
                 activity.overridePendingTransition(0, 0)
-                activity.finish()
             }
         }
 
@@ -94,7 +123,6 @@ class FavoriteFragment : BaseFragment() {
             Intent(activity, AlbumSelectActivity::class.java).let{
                 startActivity(it)
                 activity.overridePendingTransition(0, 0)
-                activity.finish()
             }
         }
 
@@ -103,6 +131,7 @@ class FavoriteFragment : BaseFragment() {
                 startActivity(it)
                 activity.overridePendingTransition(0, 0)
                 activity.finish()
+
             }
         }
 
@@ -110,7 +139,6 @@ class FavoriteFragment : BaseFragment() {
             Intent(activity, SettingsActivity::class.java).let{
                 startActivity(it)
                 activity.overridePendingTransition(0, 0)
-                activity.finish()
             }
         }
     }
@@ -133,16 +161,62 @@ class FavoriteFragment : BaseFragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        super.onCreateOptionsMenu(menu, inflater)
+
         inflater?.inflate(R.menu.favorite_main, menu)
+
+        var sortDrawable = menu?.findItem(R.id.sort)?.icon
+        sortDrawable?.setColorFilter(resources.getColor(R.color.text_secondary), PorterDuff.Mode.SRC_ATOP)
+
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         var id = item?.itemId
         when (id) {
-        /**
-         * 앨범 생성
-         * */
+            R.id.text_name -> {
+                var sharedPreferences: SharedPreferences = context.getSharedPreferences("favorite_sort", 0)
+                var editor:SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString("favorite_sort", "name")
+                editor.commit()
+                realmHelper.updateAlbumSorted("name")
+                mAlbumViewAdapter.notifyDataSetChanged()
+                mAlbumViewAdapter.update(realmHelper.albums)
+
+            }
+
+            R.id.text_name_reverse -> {
+                var sharedPreferences: SharedPreferences = context.getSharedPreferences("favorite_sort", 0)
+                var editor:SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString("favorite_sort", "name_reverse")
+                editor.commit()
+                realmHelper.updateAlbumSorted("name_reverse")
+                mAlbumViewAdapter.notifyDataSetChanged()
+                mAlbumViewAdapter.update(realmHelper.albums)
+
+            }
+
+            R.id.text_time -> {
+                var sharedPreferences: SharedPreferences = context.getSharedPreferences("favorite_sort", 0)
+                var editor:SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString("favorite_sort", "time")
+                editor.commit()
+                realmHelper.updateAlbumSorted("time")
+                mAlbumViewAdapter.update(realmHelper.albums)
+                mAlbumViewAdapter.notifyDataSetChanged()
+
+            }
+
+            R.id.text_time_reverse -> {
+                var sharedPreferences: SharedPreferences = context.getSharedPreferences("favorite_sort", 0)
+                var editor:SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString("favorite_sort", "time_reverse")
+                editor.commit()
+                realmHelper.updateAlbumSorted("time_reverse")
+                mAlbumViewAdapter.notifyDataSetChanged()
+                mAlbumViewAdapter.update(realmHelper.albums)
+
+            }
+
 
         }
         return super.onOptionsItemSelected(item)
@@ -158,6 +232,8 @@ class FavoriteFragment : BaseFragment() {
             }
         }
     }
+
+
 
 
 

@@ -2,6 +2,7 @@ package com.inuappcenter.univcam_android.activities;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,17 +37,22 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
         fragment = fragmentManager.findFragmentById(R.id.activity_fragment_base_fragmentContainer);
 
 
-        if (!mMarshMellowPermission.checkPermissionForCamera() || !mMarshMellowPermission.checkPermissionForWriteExternalStorage() || !mMarshMellowPermission.checkPermissionForReadExternalStorage()){
+        boolean permCamera = mMarshMellowPermission.checkPermissionForCamera();
+        boolean permRead = mMarshMellowPermission.checkPermissionForWriteExternalStorage();
+        boolean permWrite = mMarshMellowPermission.checkPermissionForReadExternalStorage();
+
+        if (permCamera && permRead && permWrite){
             if (fragment == null){
-                fragment = new AuthRejectFragment();
+                fragment = createFragment();
                 fragmentManager.beginTransaction()
                         .add(R.id.activity_fragment_base_fragmentContainer,fragment)
                         .commit();
             }
-
         } else{
+            Log.v("TAG", "permCamera : " + permCamera + "   permRead : " + permRead + "   permWrite : " + permWrite);
+
             if (fragment == null){
-                fragment = createFragment();
+                fragment = new AuthRejectFragment();
                 fragmentManager.beginTransaction()
                         .add(R.id.activity_fragment_base_fragmentContainer,fragment)
                         .commit();
@@ -93,12 +99,19 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
                     // 동의 및 로직 처리
                     Log.e("TAG", ">>> 카메라 동의함.");
                     if (mMarshMellowPermission.checkPermissionForCamera() && mMarshMellowPermission.checkPermissionForWriteExternalStorage() && mMarshMellowPermission.checkPermissionForReadExternalStorage()) {
-                        if (fragment != null) {
-                            fragment = createFragment();
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.activity_fragment_base_fragmentContainer, fragment)
-                                    .commit();
-                        }
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (fragment != null) {
+                                    fragment = createFragment();
+                                    fragmentManager.beginTransaction()
+                                            .replace(R.id.activity_fragment_base_fragmentContainer, fragment)
+                                            .commit();
+                                }
+                            }
+                        }, 100);
+
                     }
 
 
