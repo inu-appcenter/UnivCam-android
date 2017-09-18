@@ -3,6 +3,7 @@ package com.inuappcenter.univcam_android.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +46,11 @@ class AuthRejectFragment : Fragment() {
 //            val authRejectAlbumDialog = AuthRejectDialogFragment.newInstance()
 ////            authRejectAlbumDialog.activity.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) //그림자 없애기
 //            authRejectAlbumDialog.show(ft, "authDialog")
+            val permCamera = mMarshMellowPermission.checkPermissionForCamera()
+            val permRead = mMarshMellowPermission.checkPermissionForWriteExternalStorage()
+            val permWrite = mMarshMellowPermission.checkPermissionForReadExternalStorage()
+
+            Log.v("TAG", "permCamera : $permCamera   permRead : $permRead   permWrite : $permWrite")
 
             mMarshMellowPermission.requestPermission(fragmentManager)
 
