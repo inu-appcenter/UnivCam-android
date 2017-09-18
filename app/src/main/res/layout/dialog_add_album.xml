@@ -25,11 +25,12 @@
             android:layout_width="40dp"
             android:layout_height="40dp" />
 
-        <TextView
+        <Button
+            android:enabled="false"
             android:id="@+id/ok_button"
             android:gravity="center"
             android:layout_centerInParent="true"
-            android:textColor="@color/dialog_text"
+            android:textColor="@color/text_hint"
             android:layout_width="52dp"
             android:layout_height="40dp"
             android:text="확인"
@@ -63,17 +64,29 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="64dp"
             android:layout_marginLeft="16dp"
-            tools:text="앨범명을 입력해주세요(20자 이내)"
             android:hint="앨범명을 입력해주세요(20자 이내)"
             android:clickable="true"
             android:maxLength="20"
             android:ems="10"
             android:singleLine="true"
-            android:textStyle="bold"
             android:focusableInTouchMode="true"
-            android:textColor="@color/text_secondary">
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary">
             <requestFocus />
         </EditText>
+
+    <TextView
+        android:id="@+id/cannot_add_album"
+        android:visibility="gone"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:textColor="@color/warm_pink"
+        android:lineSpacingExtra="18.4sp"
+        android:text="이미 동일한 이름을 가진 앨범이 있습니다" />
 
 
 
