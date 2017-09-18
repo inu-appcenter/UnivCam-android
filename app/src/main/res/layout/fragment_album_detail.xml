@@ -16,6 +16,7 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
+            android:stateListAnimator="@null"
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="117dp"
@@ -27,6 +28,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginStart="16dp"
+                app:expandedTitleMarginBottom="24dp"
+                android:fitsSystemWindows="true"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
@@ -34,16 +38,26 @@
                     android:id="@+id/fragment_album_detail_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:outlineProvider="paddedBounds"
-                    android:scrollbarAlwaysDrawHorizontalTrack="true"
                     android:titleTextColor="@color/text_primary"
                     app:layout_collapseMode="pin"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:contentInsetStartWithNavigation="0dp"
                     app:popupTheme="@style/AppThemeToolBar"
                     app:theme="@style/AppThemeToolBar"
                     app:title="앨범명"
 
                     />
 
+                <View
+                    android:stateListAnimator="@null"
+                    android:requiresFadingEdge="none"
+                    android:overScrollMode="never"
+                    android:id="@+id/toolbar_line"
+                    android:background="@color/stroke"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="bottom"
+                    android:layout_height="1dp" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
@@ -60,7 +74,6 @@
                 xmlns:android="http://schemas.android.com/apk/res/android"
 
                 android:id="@+id/recyclerview"
-                android:padding="2dp"
                 android:background="@color/window_background"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

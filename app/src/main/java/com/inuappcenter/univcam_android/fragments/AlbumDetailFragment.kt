@@ -4,6 +4,7 @@ package com.inuappcenter.univcam_android.fragments
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -25,12 +26,11 @@ import java.util.*
  */
 class AlbumDetailFragment : Fragment(){
 
-
-
     lateinit var mAlbumViewAdapter: AlbumDetailViewAdapter
+
     private lateinit var realm: Realm
     private lateinit var realmHelper: RealmHelper
-    private lateinit var albumName: String
+    lateinit var albumName: String
     var isInActionMode: Boolean = false
     lateinit var originalList: ArrayList<AlbumDetail>
     var selectionList: ArrayList<AlbumDetail>? = null
@@ -63,8 +63,19 @@ class AlbumDetailFragment : Fragment(){
         (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         fragment_album_detail_toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_black_24dp)
         fragment_album_detail_toolbar.navigationIcon?.setColorFilter(resources.getColor(R.color.text_secondary), PorterDuff.Mode.SRC_ATOP)
+        fragment_album_detail_toolbar.contentInsetStartWithNavigation=0
         fragment_album_detail_toolbar.setNavigationOnClickListener {
-            activity.finish()
+            if (isInActionMode) {
+                isInActionMode = false
+                mAlbumViewAdapter.notifyDataSetChanged()
+
+
+            } else {
+                fragment_album_detail_toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_black_24dp)
+                fragment_album_detail_toolbar.navigationIcon?.setColorFilter(resources.getColor(R.color.text_secondary), PorterDuff.Mode.SRC_ATOP)
+                activity.finish()
+            }
+
         }
         fragment_album_detail_toolbar.title = albumName
 
@@ -73,6 +84,30 @@ class AlbumDetailFragment : Fragment(){
         collapsingToolbarLayout.setExpandedTitleTypeface(tf)
         collapsingToolbarLayout.setCollapsedTitleTextColor(resources.getColor(R.color.text_primary))
         collapsingToolbarLayout.setExpandedTitleColor(resources.getColor(R.color.text_primary))
+
+
+        /** 툴바 밑에 line 만들기 */
+        appBarLayout.addOnOffsetChangedListener{ appBarLayout, verticalOffset ->
+            // 천천히 흐려지기
+//            toolbar_line.alpha =  Math.abs(verticalOffset).toFloat() / appBarLayout.getTotalScrollRange()
+            if (Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()) {
+                // Collapsed
+                toolbar_line.visibility = View.VISIBLE
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                }
+//                appBarLayout.setBackgroundResource(R.drawable.univ_stroke)
+
+            } else if (verticalOffset == 0) {
+                // Expanded
+                toolbar_line.visibility = View.GONE
+//                appBarLayout.setBackgroundColor(resources.getColor(R.color.univcam_white))
+            } else {
+                // Somewhere in between
+                toolbar_line.visibility = View.GONE
+//                appBarLayout.setBackgroundResource(R.drawable.univ_stroke)
+            }
+
+        }
 
 
 
@@ -108,7 +143,7 @@ class AlbumDetailFragment : Fragment(){
 
 
         realmHelper = RealmHelper(realm)
-        realmHelper.retrieveFromDB()
+        realmHelper.updateAlbumSorted("time")
         originalList = realmHelper.retrieveAlbumDetail(albumName)
         mAlbumViewAdapter = AlbumDetailViewAdapter(this, activity, originalList)
         recyclerview.adapter = mAlbumViewAdapter
@@ -186,5 +221,7 @@ class AlbumDetailFragment : Fragment(){
             fragment_album_detail_toolbar.title = "${counter}개의 사진 선택"
         }
     }
+
+
 
 }

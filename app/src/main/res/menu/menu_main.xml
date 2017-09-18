@@ -31,11 +31,11 @@
 
             <item
                 android:id="@+id/text_time"
-                android:title="시간순으로 정렬" />
+                android:title="최신 순으로 정렬" />
 
             <item
                 android:id="@+id/text_time_reverse"
-                android:title="시간 역순으로 정렬" />
+                android:title="오래된 순으로 정렬" />
         </menu>
 
     </item>

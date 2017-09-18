@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/album_rename"
-        android:icon="@drawable/ic_check"
-        
-        android:title="앨범 이름 변경"
+        android:id="@+id/reset"
+        android:icon="@drawable/ic_clear_black_24dp"
+
+        android:title="지우기"
 
         android:orderInCategory="0"
         app:showAsAction="always"/>

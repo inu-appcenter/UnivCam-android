@@ -4,32 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <android.support.design.widget.CoordinatorLayout
-
         android:layout_above="@+id/bottom_bar"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
+            android:stateListAnimator="@null"
+            android:background="@color/univcam_white"
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="117dp"
-            app:elevation="0dp"
             android:theme="@style/AppThemeToolBar">
 
             <android.support.design.widget.CollapsingToolbarLayout
+                android:background="@color/univcam_white"
                 android:id="@+id/collapsingToolbarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginStart="16dp"
+                app:expandedTitleMarginBottom="24dp"
+                android:fitsSystemWindows="true"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-
 
 
                 <android.support.v7.widget.Toolbar
@@ -50,17 +48,22 @@
 
                 </android.support.v7.widget.Toolbar>
 
+                <View
 
+                    android:stateListAnimator="@null"
+                    android:requiresFadingEdge="none"
+                    android:overScrollMode="never"
+                    android:id="@+id/toolbar_line"
+                    android:background="@color/stroke"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="bottom"
+                    android:layout_height="1dp" />
 
 
             </android.support.design.widget.CollapsingToolbarLayout>
 
 
-            <!--<View-->
-                <!--android:id="@+id/toolbar_line"-->
-                <!--android:background="@color/gunmetal"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp" />-->
+
 
 
         </android.support.design.widget.AppBarLayout>
@@ -71,17 +74,17 @@
 
 
         <android.support.v4.widget.NestedScrollView
+            android:requiresFadingEdge="none"
+            android:overScrollMode="never"
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
             <android.support.v7.widget.RecyclerView
-
-                xmlns:android="http://schemas.android.com/apk/res/android"
-
                 android:id="@+id/recyclerview"
                 android:padding="2dp"
                 android:background="@color/window_background"

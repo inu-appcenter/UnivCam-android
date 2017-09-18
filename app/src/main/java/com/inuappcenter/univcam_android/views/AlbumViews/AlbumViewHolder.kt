@@ -21,6 +21,7 @@ class AlbumViewHolder(view :View): RecyclerView.ViewHolder(view){
     val camera_button : ImageButton = itemView.camera_button
 
 
+
     //TODO: Kotlin 더 공부!
 //    val tvTitle: TextView by lazy {
 //        view.findViewById<TextView>(R.id.title) as TextView

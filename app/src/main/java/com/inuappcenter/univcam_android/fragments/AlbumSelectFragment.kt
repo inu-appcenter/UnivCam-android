@@ -10,7 +10,6 @@ import android.widget.CheckBox
 
 import com.inuappcenter.univcam_android.R
 import com.inuappcenter.univcam_android.activities.AlbumActivity
-import com.inuappcenter.univcam_android.activities.AlbumSelectActivity
 import com.inuappcenter.univcam_android.database.RealmHelper
 import com.inuappcenter.univcam_android.entites.Album
 import com.inuappcenter.univcam_android.views.AlbumViews.AlbumViewSelectAdapter
@@ -65,8 +64,8 @@ class AlbumSelectFragment : BaseFragment() {
         realm = Realm.getDefaultInstance()
 
         realmHelper = RealmHelper(realm)
-        realmHelper.retrieveFromDB()
-        initialList = realmHelper.justRefresh()
+        realmHelper.updateAlbumSorted("time")
+        initialList = realmHelper.getAlbums()
         mAlbumViewSelectAdapter = AlbumViewSelectAdapter(this, initialList)
         fragment_album_select_recyclerview.adapter = mAlbumViewSelectAdapter
 
@@ -76,10 +75,6 @@ class AlbumSelectFragment : BaseFragment() {
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater?.inflate(R.menu.menu_album_select, menu)
-
-
-
-
 
     }
 

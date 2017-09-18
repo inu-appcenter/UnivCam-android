@@ -19,7 +19,6 @@ public class Album extends RealmObject {
     private Date albumDate;
     private String albumPath;
     private String thumbnailUri;
-    private int quantity;
 
     @Required
     private Boolean isFavorite;
@@ -37,7 +36,6 @@ public class Album extends RealmObject {
         this.albumDate = albumDate;
         this.albumPath = albumPath;
         this.thumbnailUri = thumbnailUri;
-        this.quantity = quantity;
         this.isFavorite = isFavorite;
         this.pictures = pictures;
     }
@@ -74,13 +72,6 @@ public class Album extends RealmObject {
         this.thumbnailUri = thumbnailUri;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     public Boolean getFavorite() {
         return isFavorite;

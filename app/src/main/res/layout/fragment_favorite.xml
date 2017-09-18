@@ -16,6 +16,7 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
+            android:stateListAnimator="@null"
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="117dp"
@@ -23,10 +24,14 @@
             android:theme="@style/AppThemeToolBar">
 
             <android.support.design.widget.CollapsingToolbarLayout
+                android:background="@color/univcam_white"
                 android:id="@+id/collapsingToolbarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginStart="16dp"
+                app:expandedTitleMarginBottom="24dp"
+                android:fitsSystemWindows="true"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
@@ -45,6 +50,16 @@
 
                     />
 
+                <View
+
+                    android:stateListAnimator="@null"
+                    android:requiresFadingEdge="none"
+                    android:overScrollMode="never"
+                    android:id="@+id/toolbar_line"
+                    android:background="@color/stroke"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="bottom"
+                    android:layout_height="1dp" />
 
 
             </android.support.design.widget.CollapsingToolbarLayout>

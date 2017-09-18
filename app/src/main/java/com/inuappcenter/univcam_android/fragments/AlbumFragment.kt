@@ -3,14 +3,14 @@ package com.inuappcenter.univcam_android.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.PorterDuff
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
@@ -22,10 +22,8 @@ import com.inuappcenter.univcam_android.database.RealmHelper
 import com.inuappcenter.univcam_android.dialogs.AlbumDialogFragment
 import com.inuappcenter.univcam_android.dialogs.AlbumDialogInterface
 import com.inuappcenter.univcam_android.entites.Album
-import com.inuappcenter.univcam_android.entites.ItemClickListener
 import com.inuappcenter.univcam_android.views.AlbumViews.AlbumViewAdapter
 import io.realm.Realm
-import io.realm.RealmChangeListener
 import kotlinx.android.synthetic.main.bottom_bar.*
 import kotlinx.android.synthetic.main.fragment_album.*
 import java.io.File
@@ -58,6 +56,8 @@ class AlbumFragment : BaseFragment(){
                               savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
 
+
+
         return inflater!!.inflate(R.layout.fragment_album, container, false)
     }
 
@@ -73,20 +73,24 @@ class AlbumFragment : BaseFragment(){
         collapsingToolbarLayout.setExpandedTitleColor(resources.getColor(R.color.text_primary))
 
 
-
+        /** 툴바 밑에 line 만들기 */
         appBarLayout.addOnOffsetChangedListener{ appBarLayout, verticalOffset ->
+            // 천천히 흐려지기
+//            toolbar_line.alpha =  Math.abs(verticalOffset).toFloat() / appBarLayout.getTotalScrollRange()
             if (Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange()) {
                 // Collapsed
-//                toolbar_line.visibility = View.VISIBLE
-//                appBarLayout.setBackgroundRe?source(R.drawable.univ_stroke)
+                toolbar_line.visibility = View.VISIBLE
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                }
+//                appBarLayout.setBackgroundResource(R.drawable.univ_stroke)
 
             } else if (verticalOffset == 0) {
                 // Expanded
-//                toolbar_line.visibility = View.GONE
+                toolbar_line.visibility = View.GONE
 //                appBarLayout.setBackgroundColor(resources.getColor(R.color.univcam_white))
             } else {
                 // Somewhere in between
-//                toolbar_line.visibility = View.VISIBLE
+                toolbar_line.visibility = View.GONE
 //                appBarLayout.setBackgroundResource(R.drawable.univ_stroke)
             }
 
@@ -102,15 +106,20 @@ class AlbumFragment : BaseFragment(){
         realm = Realm.getDefaultInstance()
 
         realmHelper = RealmHelper(realm)
-        realmHelper.retrieveFromDB()
-        mAlbumViewAdapter = AlbumViewAdapter(this, activity, realmHelper.justRefresh())
+
+        var sharedPreferences: SharedPreferences = context.getSharedPreferences("main_sort", 0)
+        var sort = sharedPreferences.getString("main_sort", "name_reverse")
+
+
+        realmHelper.updateAlbumSorted(sort)
+        mAlbumViewAdapter = AlbumViewAdapter(this, activity as AlbumActivity, realmHelper.getAlbums())
         recyclerview.adapter = mAlbumViewAdapter
 
         //data change events and refresh
 
 
 //        realmChangeListener = RealmChangeListener {
-//            recyclerview.adapter = AlbumViewAdapter(activity, realmHelper.justRefresh())
+//            recyclerview.adapter = AlbumViewAdapter(activity, realmHelper.getAlbums())
 //        }
 //
 //        realm.addChangeListener(realmChangeListener)
@@ -123,6 +132,7 @@ class AlbumFragment : BaseFragment(){
                 startActivity(it)
                 activity.overridePendingTransition(0, 0)
                 activity.finish()
+                activity.overridePendingTransition(0, 0)
             }
         }
 
@@ -131,7 +141,6 @@ class AlbumFragment : BaseFragment(){
                 startActivity(it)
                 activity.overridePendingTransition(0, 0)
 
-                activity.finish()
             }
         }
 
@@ -139,7 +148,6 @@ class AlbumFragment : BaseFragment(){
             Intent(activity, AlbumSelectActivity::class.java).let{
                 startActivity(it)
                 activity.overridePendingTransition(0, 0)
-                activity.finish()
             }
         }
 
@@ -147,7 +155,6 @@ class AlbumFragment : BaseFragment(){
             Intent(activity, FavoriteActivity::class.java).let{
                 startActivity(it)
                 activity.overridePendingTransition(0, 0)
-                activity.finish()
             }
         }
 
@@ -155,7 +162,6 @@ class AlbumFragment : BaseFragment(){
             Intent(activity, SettingsActivity::class.java).let{
                 startActivity(it)
                 activity.overridePendingTransition(0, 0)
-                activity.finish()
             }
         }
 
@@ -210,7 +216,7 @@ class AlbumFragment : BaseFragment(){
                             file.mkdirs()
                         }
 //
-                        mAlbumViewAdapter.addAlbum(Album(it,date, file.toString(),"R.drawable.img_example", 0, false, null))
+                        mAlbumViewAdapter.addAlbum(Album(it, date, file.toString(),"R.drawable.img_box_174_dp", 0, false, null))
 
 
                         saveAlbumToRealm(albumName, file.toString(), date)
@@ -218,6 +224,53 @@ class AlbumFragment : BaseFragment(){
                 })
                 createAlbumDialog.show(ft, "dialog")
             }
+
+            R.id.text_name -> {
+                var sharedPreferences: SharedPreferences = context.getSharedPreferences("main_sort", 0)
+                var editor:SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString("main_sort", "name")
+                editor.commit()
+                realmHelper.updateAlbumSorted("name")
+                mAlbumViewAdapter.notifyDataSetChanged()
+                mAlbumViewAdapter.update(realmHelper.albums)
+
+            }
+
+            R.id.text_name_reverse -> {
+                var sharedPreferences: SharedPreferences = context.getSharedPreferences("main_sort", 0)
+                var editor:SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString("main_sort", "name_reverse")
+                editor.commit()
+                realmHelper.updateAlbumSorted("name_reverse")
+                mAlbumViewAdapter.notifyDataSetChanged()
+                mAlbumViewAdapter.update(realmHelper.albums)
+
+            }
+
+            R.id.text_time -> {
+                var sharedPreferences: SharedPreferences = context.getSharedPreferences("main_sort", 0)
+                var editor:SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString("main_sort", "time")
+                editor.commit()
+                realmHelper.updateAlbumSorted("time")
+                mAlbumViewAdapter.update(realmHelper.albums)
+                mAlbumViewAdapter.notifyDataSetChanged()
+
+            }
+
+            R.id.text_time_reverse -> {
+                var sharedPreferences: SharedPreferences = context.getSharedPreferences("main_sort", 0)
+                var editor:SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString("main_sort", "time_reverse")
+                editor.commit()
+                realmHelper.updateAlbumSorted("time_reverse")
+                mAlbumViewAdapter.notifyDataSetChanged()
+                mAlbumViewAdapter.update(realmHelper.albums)
+
+            }
+
+
+
         }
         return super.onOptionsItemSelected(item)
     }
