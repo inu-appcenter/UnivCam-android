@@ -15,45 +15,14 @@ import kotlinx.android.synthetic.main.fragment_album_detail.*
  * Created by ichaeeun on 2017. 8. 13..
  */
 
-class AlbumDetailPictureViewHolder(var view :View, var fragment: AlbumDetailFragment): RecyclerView.ViewHolder(view), View.OnClickListener {
+class AlbumDetailPictureViewHolder(var view :View, var fragment: AlbumDetailFragment): RecyclerView.ViewHolder(view) {
 
 
-    var b: Boolean = false
     val checkbox: CheckBox = itemView.checkbox
     val select_layout: RelativeLayout = itemView.picture_layout
     var picture: ImageView = itemView.picture
+    val layer: View = itemView.layer
 
-    init {
-
-        select_layout.setOnLongClickListener{
-            if(!checkbox.isChecked) {
-                checkbox.isChecked = true
-            }
-            fragment.fragment_album_detail_toolbar.menu.clear()
-            fragment.fragment_album_detail_toolbar.inflateMenu(R.menu.menu_detail_album_action_mode)
-            fragment.fragment_album_detail_toolbar.title
-            fragment.isInActionMode = true
-            fragment.mAlbumViewAdapter.notifyDataSetChanged()
-            (fragment.activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-            fragment.fragment_album_detail_toolbar.setNavigationIcon(R.drawable.ic_keyboard_arrow_left_black_24dp)
-            fragment.fragment_album_detail_toolbar.setNavigationOnClickListener {
-            fragment.activity.finish()
-        }
-            return@setOnLongClickListener true
-
-
-        }
-
-        checkbox.setOnClickListener(this)
-        select_layout.setOnClickListener{
-            if (b) {
-                checkbox.isChecked = !checkbox.isChecked
-                b = true
-            } else {
-                checkbox.isChecked = !checkbox.isChecked
-            }
-
-        }
     }
 
 
@@ -71,9 +40,3 @@ class AlbumDetailPictureViewHolder(var view :View, var fragment: AlbumDetailFrag
 //        quantity.text = ""
 //    }
 
-    override fun onClick(p0: View) {
-        fragment.prepareSelection(p0, adapterPosition)
-    }
-
-
-}

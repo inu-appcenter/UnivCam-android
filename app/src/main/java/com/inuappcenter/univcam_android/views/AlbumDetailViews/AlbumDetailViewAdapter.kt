@@ -21,6 +21,7 @@ class AlbumDetailViewAdapter(var fragment: AlbumDetailFragment, var context: Act
 
     private lateinit var realm: Realm
     private lateinit var realmHelper: RealmHelper
+    lateinit var albumDetailPictureAdapter: AlbumDetailPictureAdapter
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumDetailViewHolder {
@@ -48,8 +49,8 @@ class AlbumDetailViewAdapter(var fragment: AlbumDetailFragment, var context: Act
         realm = Realm.getDefaultInstance()
 
         realmHelper = RealmHelper(realm)
-        realmHelper.retrieveFromDB()
-        var albumDetailPictureAdapter = AlbumDetailPictureAdapter(fragment, pictureList)
+//        realmHelper.updateAlbumSorted()
+        albumDetailPictureAdapter = AlbumDetailPictureAdapter(fragment, pictureList)
         holder.pictureRecyclerview.adapter = albumDetailPictureAdapter
 
     }

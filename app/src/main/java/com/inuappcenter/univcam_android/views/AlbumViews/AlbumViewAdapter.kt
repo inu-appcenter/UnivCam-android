@@ -1,15 +1,17 @@
 package com.inuappcenter.univcam_android.views.AlbumViews
 
-import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.provider.MediaStore
+import android.support.v4.content.FileProvider
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.inuappcenter.univcam_android.R
+import com.inuappcenter.univcam_android.activities.AlbumActivity
 import com.inuappcenter.univcam_android.activities.AlbumDetailActivity
 import com.inuappcenter.univcam_android.database.RealmHelper
 import com.inuappcenter.univcam_android.entites.Album
@@ -25,10 +27,12 @@ import java.util.*
  * Created by ichaeeun on 2017. 7. 29..
  */
 
-class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var albumList: ArrayList<Album>) : RecyclerView.Adapter<AlbumViewHolder>() {
+class AlbumViewAdapter(var fragment: AlbumFragment, var context: AlbumActivity, var albumList: ArrayList<Album>) : RecyclerView.Adapter<AlbumViewHolder>() {
 
     private lateinit var realm: Realm
     private lateinit var realmHelper: RealmHelper
+//    private var searchList:ArrayList<Album>? = null
+
 
     fun addAlbum(album: Album) {
         albumList.add(0, album)
@@ -38,6 +42,9 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
         notifyDataSetChanged()
     }
 
+    fun update(albums: ArrayList<Album>) {
+        albumList = albums
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -49,16 +56,25 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
         realm = Realm.getDefaultInstance()
 
         realmHelper = RealmHelper(realm)
-        realmHelper.retrieveFromDB()
+        var sharedPreferences: SharedPreferences = context.getSharedPreferences("main_sort", 0)
+        var sort = sharedPreferences.getString("main_sort", "name_reverse")
+
+        realmHelper.updateAlbumSorted(sort)
+        albumList = realmHelper.albums
 
         val item = albumList.get(position)
-        //TODO: 이미지 가져오는 DB- 처음은 default
-//        Glide.with(context)
-//                .load(item.thumbnailUri)
-//                .into(holder.thumbnail)
-        holder.thumbnail.setImageResource(R.drawable.img_example)
+
+        if (realmHelper.getLatestPicturePath(item.albumName) != null) {
+            Glide.with(context)
+                    .load(File(realmHelper.getLatestPicturePath(item.albumName)))
+                    .into(holder.thumbnail)
+        } else {
+            holder.thumbnail.setImageResource(R.drawable.img_box_174_dp);
+        }
+
+
         holder.tv_title.setText(item.albumName)
-        holder.tv_quantity.setText("${item.quantity}장의 사진")
+        holder.tv_quantity.setText("${realmHelper.countPictures(item.albumName)}장의 사진")
         holder.is_favorite.setChecked(item.favorite)
         holder.album_menu.setOnClickListener {
             var popupMenu = PopupMenu(context, holder.album_menu)
@@ -134,14 +150,41 @@ class AlbumViewAdapter(var fragment: AlbumFragment, var context: Activity, var a
         val file = File(filePath)
         val outputFileUri = Uri.fromFile(file)
 
+        var authorities = context.packageName + ".fileprovider"
+        var imageUri:Uri = FileProvider.getUriForFile(context, authorities, file)
         // TODO: 풀사이즈를 받음
         intent.action = MediaStore.ACTION_IMAGE_CAPTURE
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri)
         context.startActivityForResult(intent, TAKE_CAMERA)
         var picture: Picture = Picture(file.toString(), date,yearMonthday, category)
 
         realmHelper.savePicture(albumName, picture)
     }
+
+
+//    /**  검색 */
+//    fun filter(charText: String) {
+//        var searchAlbumName = charText.toLowerCase(Locale.getDefault())
+//        searchList?.clear()
+//        if (searchAlbumName.length == 0) {
+//            //TODO: 검색 목록 보여주기
+//            searchList?.addAll(albumList)
+//            Log.d("name","isEmpty")
+//        } else {
+//            for (album in albumList) {
+//                var name: String = album.albumName
+//                Log.d("name",name)
+//                if (name.toLowerCase().contains(searchAlbumName)) {
+//                    searchList?.add(album)
+//                }
+//            }
+//        }
+//
+//        notifyDataSetChanged()
+//    }
+
+
 
 }
 
