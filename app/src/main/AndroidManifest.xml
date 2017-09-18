@@ -26,6 +26,7 @@
             android:name=".activities.FavoriteActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:windowSoftInputMode="adjustNothing"
             android:noHistory="true"
             android:name=".activities.SearchActivity"
             android:screenOrientation="portrait" />
@@ -45,6 +46,14 @@
             android:screenOrientation="portrait" />
         <activity android:name=".activities.ImageViewActivity"></activity>
         <activity android:name=".activities.DesignerInfoActivity"></activity>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
     </application>
 
 </manifest>
