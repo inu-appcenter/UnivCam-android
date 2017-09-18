@@ -7,6 +7,7 @@
 
     <color name="text_primary">@color/gunmetal</color>
     <color name="text_secondary">@color/cool_grey</color>
+    <color name="text_hint">@color/cool_grey</color>
     <color name="dialog_text">@color/very_light_grey</color>
 
     <color name="icon_normal">@color/cool_grey</color>
@@ -15,12 +16,14 @@
     <color name="stroke">@color/light_grey</color>
     <color name="like_button">@color/warm_pink</color>
     <color name="image_selected">@color/light_grey</color>
+    <color name="image_checked">@color/transparent_layer</color>
 
 
 
 
     <!-- UnivCam colors.  -->
     <color name="very_light_grey">#60353946</color>
+    <color name="transparent_layer">#40353946</color>
     <color name="gunmetal">#515861</color>
     <color name="univcam_white">#ffffff</color>
     <color name="warm_pink">#ff4773</color>
