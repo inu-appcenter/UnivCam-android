@@ -1,14 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:background="#ffffff"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/univcam_white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
+
+
+    <android.support.design.widget.CoordinatorLayout
+
+
+        android:layout_above="@+id/bottom_bar"
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:stateListAnimator="@null"
+            android:background="@color/univcam_white"
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="117dp"
+            android:theme="@style/AppThemeToolBar">
+
+
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:background="@color/univcam_white"
+                android:id="@+id/collapsingToolbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginStart="16dp"
+                app:expandedTitleMarginBottom="24dp"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
 
 
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/fragment_album_toolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    app:title=" "
+                    android:outlineProvider="paddedBounds"
+                    android:paddingLeft="16dp"
+                    android:titleTextColor="@color/text_primary"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppThemeToolBar"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"
+                    app:theme="@style/AppThemeToolBar"
+                    app:titleTextAppearance="@style/ActionBar.nameText">
+
+                <ImageButton
+                    android:enabled="false"
+                    android:id="@+id/reset_button"
+                    android:tint="@color/text_secondary"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_gravity="right|top"
+                    android:background="@android:color/transparent"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_clear_black_24dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                </android.support.v7.widget.Toolbar>
+
+
+
+
+
+
+
+                <EditText
+                    android:imeOptions="actionDone"
+                    android:layout_marginBottom="15dp"
+                    android:layout_gravity="bottom"
+                    android:id="@+id/edit_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:maxLength="20"
+                    android:hint="검색어를 입력해주세요"
+                    android:textColorHint="@color/cool_grey"
+                    android:layout_marginTop="63dp"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"
+                    android:textSize="32dp" >
+                    <requestFocus />
+                </EditText>
+
+                <View
+
+                    android:stateListAnimator="@null"
+                    android:requiresFadingEdge="none"
+                    android:overScrollMode="never"
+                    android:id="@+id/toolbar_line"
+                    android:background="@color/stroke"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="bottom"
+                    android:layout_height="1dp" />
+
+
+
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+
+
+
+
+
+        </android.support.design.widget.AppBarLayout>
+
+
+
+
+
+
+
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:background="@color/univcam_white"
+            android:requiresFadingEdge="none"
+            android:overScrollMode="never"
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/searchSize"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/cool_grey"
+                    android:lineSpacingExtra="16.4dp"
+                    android:text="최근검색항목"
+                    />
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/recyclerview"
+                    android:padding="2dp"
+                    android:background="@color/window_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+            </LinearLayout>
+
+
+
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
 
 
 
