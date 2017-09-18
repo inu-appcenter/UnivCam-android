@@ -18,48 +18,47 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="94dp"
+            android:layout_height="117dp"
             app:elevation="0dp"
             android:theme="@style/AppThemeToolBar">
 
             <android.support.design.widget.CollapsingToolbarLayout
+                android:background="@color/univcam_white"
                 android:id="@+id/collapsingToolbarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="enterAlwaysCollapsed">
+                app:expandedTitleMarginStart="16dp"
+                app:expandedTitleMarginBottom="24dp"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:textColor="@color/text_primary"
-                        android:gravity="bottom"
-                        android:textStyle="bold"
-                        android:layout_marginTop="53dp"
-                        android:layout_marginLeft="16dp"
-                        android:textSize="32dp"
-                        android:id="@+id/toolbar_origin_text"
-                        android:text="설정"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
 
                 <android.support.v7.widget.Toolbar
+                    app:title="설정"
                     android:id="@+id/fragment_album_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    app:title=" "
                     android:outlineProvider="paddedBounds"
                     android:paddingLeft="16dp"
                     android:titleTextColor="@color/text_primary"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/AppThemeToolBar"
                     android:scrollbarAlwaysDrawHorizontalTrack="true"
-                    app:theme="@style/AppThemeToolBar"
+                    app:theme="@style/AppThemeToolBar">
+                </android.support.v7.widget.Toolbar>
 
-                    />
+                <View
+
+                    android:stateListAnimator="@null"
+                    android:requiresFadingEdge="none"
+                    android:overScrollMode="never"
+                    android:id="@+id/toolbar_line"
+                    android:background="@color/stroke"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="bottom"
+                    android:layout_height="1dp" />
 
 
 
